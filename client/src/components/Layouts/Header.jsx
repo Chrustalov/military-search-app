@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import "../../styles/header.scss";
+import { useUser } from "../../contexts/UserContext";
 
 const updateActiveItem = (target, horiSelector) => {
   if (!target || !horiSelector) return;
@@ -21,6 +22,7 @@ function Header() {
   const tabsNewAnimRef = useRef(null);
   const horiSelectorRef = useRef(null);
   const router = useLocation();
+  const { user, isCompany } = useUser();
 
   function logout() {
     if (localStorage.getItem("token")) {
@@ -92,7 +94,10 @@ function Header() {
     <header className="sticky-top header-underline bg-white ">
       <nav className="navbar navbar-expand-custom p-0">
         <NavLink className="navbar-brand navbar-logo text-black" to={"/"}>
-          <img src="/images/logo.svg" alt="Unity Rescue Platform | Об'єднай людей"/>
+          <img
+            src="/images/logo.svg"
+            alt="Unity Rescue Platform | Об'єднай людей"
+          />
         </NavLink>
 
         <button
@@ -130,11 +135,19 @@ function Header() {
 
             <li className="nav-item">
               <NavLink className="nav-link" to={"/posts"}>
-                Подати заявку
+                Оголошення
               </NavLink>
             </li>
 
-            {!localStorage.getItem("token") ? (
+            {user && isCompany && (
+              <li className="nav-item">
+                <NavLink className="nav-link" to={"/create"}>
+                  Створити
+                </NavLink>
+              </li>
+            )}
+
+            {user ? (
               <>
                 <li className="nav-item">
                   <NavLink className="nav-link" to={"signin"}>
@@ -156,7 +169,7 @@ function Header() {
                   </NavLink>
                 </li>
                 <li className="z-3 mx-3  align-content-center ">
-                  <button className="btn btn-outline-dark " onClick={logout}>
+                  <button className="btn btn-outline-success " onClick={logout}>
                     Вийти
                   </button>
                 </li>

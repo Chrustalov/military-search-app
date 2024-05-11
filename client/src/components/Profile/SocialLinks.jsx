@@ -9,11 +9,11 @@ function SocialLinks({ links = [], addLink, removeLink, editLink }) {
       links.map((link, index) => (
         <SocialLink
           key={link.key}
-          link={link[link.key]}
+          link={link}
           isNew={index === links.length - 1 && !link}
           onEditLink={(newLink) => editLink(index, newLink)}
           onRemoveLink={() => removeLink(index)}
-          isLink={link.includes("http")}
+          isLink={link[link.key]?.includes("http")}
         />
       ))
     );
@@ -27,6 +27,7 @@ function SocialLinks({ links = [], addLink, removeLink, editLink }) {
     <div className=" mb-4 mb-lg-0">
       <div className="card-body p-0">
         <ul className="list-group list-group-flush rounded-3">
+
           {elements}
           <li className="list-group-item d-flex justify-content-center align-items-center p-3">
             <button
@@ -42,5 +43,6 @@ function SocialLinks({ links = [], addLink, removeLink, editLink }) {
     </div>
   );
 }
+
 
 export default SocialLinks;

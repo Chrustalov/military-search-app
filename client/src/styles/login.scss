@@ -1,9 +1,9 @@
-$blue-color: #6977d4;
+@import "./variables.scss";
 
 .overlay {
   background: #f6f5f7;
-  background: -webkit-linear-gradient(to right, var(--blucolor), #00dbde);
-  background: linear-gradient(to right, $blue-color, #b2b9e9);
+  background: -webkit-linear-gradient(to right, $low-green, $dark-green);
+  background: linear-gradient(to right, $low-green, $dark-green);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 0 0;
@@ -16,12 +16,14 @@ $blue-color: #6977d4;
   transition: transform 1.6s ease-in-out;
 
   @keyframes show {
-    0%, 49.99% {
+    0%,
+    49.99% {
       opacity: 0;
       z-index: 1;
     }
 
-    50%, 100% {
+    50%,
+    100% {
       opacity: 1;
       z-index: 5;
     }
@@ -47,19 +49,29 @@ $blue-color: #6977d4;
     transition: all 0.6s ease-in-out !important;
 
     & input[type="checkbox"] {
-        width: auto !important;
+      width: auto !important;
     }
   }
 
   @keyframes wavy {
-    0%, 100% {
+    0%,
+    100% {
       transform: translateY(0);
     }
-    20%, 60% {
+    20%,
+    60% {
       transform: translateY(-20px);
     }
-    40%, 80% {
+    40%,
+    80% {
       transform: translateY(0);
     }
   }
+}
+
+#container {
+  width: 80%;
+  min-height: 550px;
+  box-shadow: 0 14px 28px $low-green;
+  margin: 2rem 0;
 }

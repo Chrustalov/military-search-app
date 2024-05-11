@@ -1,4 +1,4 @@
-$blue-color: #5161ce;
+@import "./variables.scss";
 
 i {
   margin-right: 10px;
@@ -10,9 +10,9 @@ i {
 }
 
 .header-underline {
-  border-bottom: $blue-color 2px solid;
+  border-bottom: $low-green 2px solid;
   border-radius: 5px;
-  box-shadow: 0px 0px 10px 0px $blue-color;
+  box-shadow: 0px 0px 10px 0px $low-green;
 }
 
 
@@ -40,7 +40,7 @@ i {
         position: relative;
 
         &:hover {
-          color: $blue-color;
+          color: $low-green;
           cursor: pointer;
         }
       }
@@ -79,7 +79,7 @@ i {
     left: 0px;
     transition-duration: 0.6s;
     transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    background-color: $blue-color;
+    background-color: $low-green;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
     margin-top: 10px;

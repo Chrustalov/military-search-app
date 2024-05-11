@@ -1,13 +1,30 @@
-$dark-green: #1d2e28;
-$high-green: #18392b;
-$middle-green: #14452f;
-$normal-green: #0f5132;
-$low-green: #0a5c36;
+@import "./variables.scss";
 
 .card {
   width: 31%;
   padding: 20px;
   margin: 20px;
+  &.card-latest {
+    margin: 0 0 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    .card-image {
+      width: 45%;
+      height: auto;
+    }
+    .card-content {
+      width: 50%;
+      .card-title {
+        font-size: 17px;
+      }
+      .card-city {
+        font-size: 14px;
+      }
+    }
+  }
   .card-image {
     width: 100%;
     height: 250px;
@@ -50,6 +67,78 @@ $low-green: #0a5c36;
 .article {
   .article-img {
     border-radius: 12px;
-    border: 1px solid $high-green
+    border: 2px solid $high-green;
+    margin-bottom: 15px;
+    img {
+      border-radius: 12px;
+    }
+  }
+  .article-title {
+    font-size: 35px;
+    font-weight: 700;
+    color: $high-green;
+    margin-bottom: 10px;
+  }
+  .media-body {
+    span {
+      color: $high-green;
+      font-size: 15px;
+    }
+  }
+  .article-header {
+    margin-bottom: 30px;
+  }
+  .article-content {
+    font-size: 17px;
+    color: $middle-green;
+    font-weight: 500;
+    line-height: 1.8;
+    margin-bottom: 50px;
+  }
+}
+
+.widget-author {
+  .widget-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: $high-green;
+    margin-bottom: 15px;
+  }
+  img {
+    border-radius: 8px;
+    border: 2px solid $high-green;
+    margin-bottom: 20px;
+  }
+  .about {
+    color: #000;
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 10px;
+    &.socials {
+      color: $dark-green;
+      font-size: 18px;
+      margin-top: 15px;
+    }
+  }
+  .link-columns {
+    display: flex;
+    flex-direction: column;
+    a {
+      text-decoration: none;
+      color: $middle-green;
+      margin-bottom: 6px;
+    }
+  }
+  .social-links {
+    display: flex;
+    align-items: center;
+    a:not(:last-child) {
+      margin-right: 15px;
+    }
+    svg {
+      fill: $middle-green;
+      height: 30px;
+      width: 30px;
+    }
   }
 }

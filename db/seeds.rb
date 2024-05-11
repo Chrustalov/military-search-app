@@ -10,7 +10,18 @@ user1 = User.create(email: "test@gmail.com",
                     password: '123456Ua',
                     password_confirmation: '123456Ua')
 
-Profile.create(user_id: user1.id, city_id: City.first.id, organization_name: 'DNS', avatar: File.open('app/assets/avatar-und.png'), about_me: 'We are good org.')
+Profile.create(
+  user_id: user1.id,
+  city_id: City.first.id,
+  organization_name: 'DNS',
+  avatar: File.open('app/assets/avatar-und.png'),
+  about_me: 'We are good org.',
+  first_phone: '380 11 22 30 333',
+  second_phone: '380 66 22 30 333',
+  telegram_link: "https://www.google.com/",
+  instagram_link: "https://www.google.com/",
+  facebook_link: "https://www.google.com/"
+  )
 # Profile.create(user_id: user1.id, city_id: City.second.id, first_name: 'Марія', second_name: 'Сидорова', avatar: File.open('app/assets/avatar-und.png'), about_me: 'Привіт! Я Марія.')
 
 # Створюємо пости

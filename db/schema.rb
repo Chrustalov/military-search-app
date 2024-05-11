@@ -10,14 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_05_11_164143) do
+ActiveRecord::Schema[7.0].define(version: 2024_05_11_174706) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "broadcasts", force: :cascade do |t|
-    t.boolean "is_telegram"
-    t.boolean "is_email"
-    t.boolean "only_my_city"
+    t.boolean "is_telegram", default: false
+    t.boolean "is_email", default: false
+    t.boolean "only_my_city", default: false
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -45,13 +45,11 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_11_164143) do
     t.string "last_name"
     t.string "avatar"
     t.date "birthdate"
-    t.bigint "city_id", null: false
     t.string "region"
     t.text "information"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "post_id", null: false
-    t.index ["city_id"], name: "index_missing_people_on_city_id"
     t.index ["post_id"], name: "index_missing_people_on_post_id"
   end
 
@@ -63,6 +61,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_11_164143) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "photo"
+    t.bigint "city_id"
+    t.index ["city_id"], name: "index_posts_on_city_id"
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
@@ -103,8 +103,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_11_164143) do
   add_foreign_key "broadcasts", "users"
   add_foreign_key "comments", "posts"
   add_foreign_key "comments", "users"
-  add_foreign_key "missing_people", "cities"
   add_foreign_key "missing_people", "posts"
+  add_foreign_key "posts", "cities"
   add_foreign_key "posts", "users"
   add_foreign_key "profiles", "cities"
   add_foreign_key "profiles", "users"

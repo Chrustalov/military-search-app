@@ -1,0 +1,17 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: military_search_app_development
+test:
+  <<: *default
+  database: military_search_app_test
+
+production:
+  <<: *default
+  database: military_search_app_prod
+#  username: developer
+#  password: 45685293

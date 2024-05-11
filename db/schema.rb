@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_05_11_121557) do
+ActiveRecord::Schema[7.0].define(version: 2024_05_11_120029) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -48,7 +48,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_11_121557) do
   create_table "posts", force: :cascade do |t|
     t.string "title"
     t.integer "status"
-    t.string "image"
     t.text "content"
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
@@ -59,8 +58,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_11_121557) do
   create_table "profiles", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "city_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.string "first_phone"
     t.string "second_phone"
     t.text "about_me"
@@ -69,6 +66,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_11_121557) do
     t.string "facebook_link"
     t.string "first_name"
     t.string "second_name"
+    t.string "avatar"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["city_id"], name: "index_profiles_on_city_id"
     t.index ["user_id"], name: "index_profiles_on_user_id"
   end

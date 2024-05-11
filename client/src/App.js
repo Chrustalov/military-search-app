@@ -4,9 +4,9 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import Header from "./components/Layouts/Header";
 import Footer from "./components/Layouts/Footer";
-import { useContext, useEffect, useMemo, useCallback } from 'react';
+import {createContext, useEffect, useMemo, useCallback, useState} from 'react';
 
-export const UserContext =useContext(null);
+export const UserContext =createContext(null);
 
 function App() {
   const [user, setUser] = useState(null);

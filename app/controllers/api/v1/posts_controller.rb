@@ -3,11 +3,19 @@ class Api::V1::PostsController < ApplicationController
   
   def index
     @posts = Post.all
-    render json: {posts: @posts}
+    render json: { posts: @posts }
   end
 
-  def show 
-    render json: {post: @post, missing_people: @post.missing_people, creator: @post.user}
+  def show
+    latest_posts = Post.order(created_at: :desc).limit(3)
+
+    render json: {
+      post: @post,
+      missing_people: @post.missing_people,
+      creator: @post.user,
+      creator_profile: @post.user.profile,
+      latest_posts:
+    }
   end
 
   def create

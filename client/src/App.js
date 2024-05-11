@@ -3,6 +3,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home/Home";
+import Posts from "./pages/Posts/Posts";
+import Post from "./pages/Posts/Post";
 import Header from "./components/Layouts/Header";
 import Footer from "./components/Layouts/Footer";
 import { useEffect, useMemo, useCallback, useState } from "react";
@@ -44,6 +46,8 @@ function App() {
         <Header />
         <Routes>
           <Route path={"/"} element={<Home />} />
+          <Route path={"/posts"} element={<Posts />} />
+          <Route exact path={"/posts/:id"} element={<Post />} />
           <Route path={"/signin"} element={loginPage} />
           <Route path={"/signup"} element={loginPage} />
         </Routes>

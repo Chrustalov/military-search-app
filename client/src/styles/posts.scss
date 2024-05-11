@@ -1,0 +1,55 @@
+$dark-green: #1d2e28;
+$high-green: #18392b;
+$middle-green: #14452f;
+$normal-green: #0f5132;
+$low-green: #0a5c36;
+
+.card {
+  width: 31%;
+  padding: 20px;
+  margin: 20px;
+  .card-image {
+    width: 100%;
+    height: 250px;
+    margin-bottom: 15px;
+    img {
+      border-radius: 6px;
+      width: 100%;
+      height: 100%;
+    }
+  }
+  .card-title {
+    color: $high-green;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    line-height: 1.2;
+  }
+  .card-description {
+    color: $middle-green;
+    font-size: 16px;
+    font-weight: 500;
+  }
+  .card-city {
+    font-size: 16px;
+    color: $dark-green;
+    span {
+      color: #fff;
+      background: $high-green;
+      padding: 5px 8px;
+      border-radius: 8px;
+    }
+  }
+}
+
+.cards-list {
+  display: flex;
+  align-items: stretch;
+}
+
+.article {
+  .article-img {
+    border-radius: 12px;
+    border: 1px solid $high-green
+  }
+}

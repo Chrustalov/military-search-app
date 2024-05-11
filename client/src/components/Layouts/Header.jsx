@@ -129,7 +129,7 @@ function Header() {
             </li>
 
             <li className="nav-item">
-              <NavLink className="nav-link" to={"/post"}>
+              <NavLink className="nav-link" to={"/posts"}>
                 Подати заявку
               </NavLink>
             </li>

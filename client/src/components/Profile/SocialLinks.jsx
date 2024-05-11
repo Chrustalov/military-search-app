@@ -32,7 +32,7 @@ function SocialLinks({ links = [], addLink, removeLink, editLink }) {
           <li className="list-group-item d-flex justify-content-center align-items-center p-3">
             <button
               type="button"
-              className="btn btn-outline-dark w-75"
+              className="btn btn-outline-success w-75"
               onClick={onAddLink}
             >
               Додати посилання

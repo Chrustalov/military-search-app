@@ -56,7 +56,7 @@ function DropFoto({ className = "", file, setFile }) {
             style={{ height: "300px" }}
           >
             <div className="col-auto">
-              <img src={url} className="img-fluid" alt="Завантажене фото" />
+              <img src={url} className="img-fluid" alt="Завантажене фото" style={{maxHeight: "300px"}} />
             </div>
           </div>
         </div>

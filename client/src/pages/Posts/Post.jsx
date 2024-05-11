@@ -1,7 +1,9 @@
 import React, {useContext, useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import axios from "axios";
+import LatestPost from "../../components/Posts/LatestPost";
 import PostDetailSkeleton from "../../components/Posts/PostDetailSkeleton";
+import { FaInstagram, FaFacebook, FaTelegram } from "react-icons/fa";
 
 const url = process.env.REACT_APP_API_URL + "/api/v1/posts/";
 
@@ -50,8 +52,8 @@ function Post() {
                                 <div className="article-img">
                                     <img src={process.env.REACT_APP_API_URL + post.photo.url} title="" alt="" />
                                 </div>
-                                <div className="article-title">
-                                    <h2>{post.title}</h2>
+                                <div className="article-header">
+                                    <h2 className="article-title">{post.title}</h2>
                                     <div className="media">
                                         <div className="media-body">
                                             <span>{new Date(post.created_at).toDateString()}</span>
@@ -59,12 +61,12 @@ function Post() {
                                     </div>
                                 </div>
                                 <div className="article-content">
-                                    { post.body }
+                                    { post.content }
                                 </div>
                             </article>
-                            <div className="widget widget-latest-post">
-                                <div className="widget-title">
-                                    <h3>Latest Post</h3>
+                            <div className="widget widget-missing-people">
+                                <div className="widget missing-people">
+                                    <h3>Зниклі</h3>
                                 </div>
                                 {/*<div className="widget-body">*/}
                                 {/*    {*/}
@@ -75,28 +77,54 @@ function Post() {
                                 {/*</div>*/}
                             </div>
                         </div>
-                        <div className="col-lg-4 m-15px-tb blog-aside">
+                        <div className="col-lg-4 m-15px-tb">
                             <div className="widget widget-author">
                                 <div className="widget-title">
-                                    <h3>Author</h3>
+                                    <h3>Організація: {profile.organization_name}</h3>
                                 </div>
                                 <div className="widget-body">
                                     <div className="media align-items-center d-flex">
                                         <div className="avatar">
-                                            <img src={'https://hackaton-9507e74b8c0c.herokuapp.com' + profile.avatar.url} title="" alt="" />
-                                        </div>
-                                        <div className="media-body">
-                                            <h6>Hello, I'm<br /> {profile.first_name} {profile.last_name}</h6>
+                                            <img src={process.env.REACT_APP_API_URL + profile.avatar.url} title={profile.organization_name} alt="" />
                                         </div>
                                     </div>
-                                    <p>Про мене: { profile.about_me }</p>
-                                    <a href={'tel:' + profile.phone_number} className="btn btn-outline-primary mt-3">
-                                        Подзвонити: +{profile.phone_number}
-                                    </a>
-                                    <a href={'mail:' + author.email} className="btn btn-outline-secondary mt-3">
-                                        Написати: +{author.email}
-                                    </a>
+                                    <p className="about">Про нас: { profile.about_me }</p>
+                                    <div className="link-columns">
+                                        <a href={'tel:' + profile.first_phone}>
+                                            Номер телефону: +{profile.first_phone}
+                                        </a>
+                                        <a href={'tel:' + profile.second_phone}>
+                                            Номер телефону: +{profile.second_phone}
+                                        </a>
+                                        <a href={'mail:' + author.email}>
+                                            Емейл: {author.email}
+                                        </a>
+                                    </div>
+                                    <p className="about socials">Соціальні мережі</p>
+                                    <div className="social-links">
+                                        <a href={profile.instagram_link} target="_blank">
+                                            <FaInstagram/>
+                                        </a>
+                                        <a href={profile.facebook_link} target="_blank">
+                                            <FaFacebook/>
+                                        </a>
+                                        <a href={profile.telegram_link} target="_blank">
+                                            <FaTelegram/>
+                                        </a>
+                                    </div>
                                     <p className="text-muted mt-4">Місто: { profile.city }</p>
+                                </div>
+                            </div>
+                            <div className="widget widget-latest-post">
+                                <div className="widget-title">
+                                    <h3>Останні публікації</h3>
+                                </div>
+                                <div className="widget-body mt-4">
+                                    {
+                                        latest_posts.map((item) => (
+                                            <LatestPost key={item.title} {...item}/>
+                                        ))
+                                    }
                                 </div>
                             </div>
                         </div>

@@ -11,6 +11,7 @@ class Api::V1::PostsController < ApplicationController
 
     render json: {
       post: @post,
+      city: @post.city,
       missing_people: @post.missing_people,
       creator: @post.user,
       creator_profile: @post.user.profile,

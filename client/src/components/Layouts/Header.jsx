@@ -134,12 +134,6 @@ function Header() {
               </NavLink>
             </li>
 
-            <li className="nav-item">
-              <NavLink className="nav-link" to={"/search"}>
-                Пошук
-              </NavLink>
-            </li>
-
             {!localStorage.getItem("token") ? (
               <>
                 <li className="nav-item">

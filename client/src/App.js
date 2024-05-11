@@ -1,12 +1,13 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import Header from "./components/Layouts/Header";
 import Footer from "./components/Layouts/Footer";
-import { useContext, useEffect, useMemo, useCallback } from 'react';
+import { useEffect, useMemo, useCallback, useState } from 'react';
+import { UserContext } from "./contexts/UserContext";
 
-export const UserContext =useContext(null);
 
 function App() {
   const [user, setUser] = useState(null);

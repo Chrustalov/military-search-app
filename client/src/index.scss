@@ -1,0 +1,182 @@
+// Змінні
+$blue-color: #5161ce;
+$transition-duration: 0.6s;
+$transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+// Кореневий елемент
+:root {
+  --blue-color: $blue-color;
+}
+
+
+
+
+// Основні стилі
+nav {
+  .navbar-logo {
+    padding: 15px;
+    color: #fff;
+  }
+
+  .header_underline {
+    border-bottom: var(--blue-color) 2px solid;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px 0px var(--blue-color);
+  }
+
+  .navbar-mainbg {
+    padding: 0;
+  }
+
+  #navbarSupportedContent {
+    overflow: hidden;
+    position: relative;
+
+    ul {
+      padding: 0;
+      margin: 0;
+
+      li {
+        list-style-type: none;
+        float: left;
+
+        a {
+          font-weight: 600;
+          color: rgba(0, 0, 0, 1);
+          text-decoration: none;
+          font-size: 15px;
+          display: block;
+          padding: 20px;
+          transition-duration: $transition-duration;
+          transition-timing-function: $transition-timing-function;
+          position: relative;
+
+          &:hover {
+            color: var(--blue-color);
+            cursor: pointer;
+          }
+        }
+      }
+    }
+
+    & > ul > li.active > a {
+      color: #fff;
+      background-color: transparent;
+      transition: all $transition-duration;
+    }
+  }
+
+  .hori-selector {
+    display: inline-block;
+    position: absolute;
+    height: 100%;
+    top: 0;
+    left: 0;
+    transition-duration: $transition-duration;
+    transition-timing-function: $transition-timing-function;
+    background-color: var(--blue-color);
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    margin-top: 10px;
+
+    & .right,
+    & .left {
+      position: absolute;
+      width: 25px;
+      height: 25px;
+      background-color: #fff;
+      bottom: 10px;
+    }
+
+    & .right {
+      right: -25px;
+    }
+
+    & .left {
+      left: -25px;
+    }
+
+    & .right:before,
+    & .left:before {
+      content: '';
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+    }
+
+    & .right:before {
+      bottom: 0;
+      right: -25px;
+    }
+
+    & .left:before {
+      bottom: 0;
+      left: -25px;
+    }
+  }
+}
+
+// Медіа-запити
+@media (min-width: 576px) {
+  nav .navbar-expand-custom {
+    -ms-flex-flow: row nowrap;
+    flex-flow: row nowrap;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+
+    .navbar-nav {
+      -ms-flex-direction: row;
+      flex-direction: row;
+    }
+
+    .navbar-toggler {
+      display: none;
+    }
+
+    .navbar-collapse {
+      display: -ms-flexbox!important;
+      display: flex!important;
+      -ms-flex-preferred-size: auto;
+      flex-basis: auto;
+    }
+  }
+}
+
+@media (max-width: 575px) {
+  nav #navbarSupportedContent ul li a {
+    padding: 12px 30px;
+  }
+
+  nav .hori-selector {
+    margin-top: 0;
+    margin-left: 10px;
+    border-radius: 0;
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+
+    & .left,
+    & .right {
+      right: 10px;
+    }
+
+    & .left {
+      top: -25px;
+      left: auto;
+    }
+
+    & .right {
+      bottom: -25px;
+    }
+
+    & .left:before {
+      left: -25px;
+      top: -25px;
+    }
+
+    & .right:before {
+      bottom: -25px;
+      left: -25px;
+    }
+  }
+}

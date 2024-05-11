@@ -1,45 +1,22 @@
 import "./App.css";
+import "react-toastify/dist/ReactToastify.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import Posts from "./pages/Posts/Posts";
 import Post from "./pages/Posts/Post";
 import Header from "./components/Layouts/Header";
 import Footer from "./components/Layouts/Footer";
-import { useEffect, useMemo, useCallback, useState } from "react";
-import { UserContext } from "./contexts/UserContext";
+import { AuthProvider } from "./contexts/UserContext";
 import Login from "./pages/Login/Login";
+import Profile from "./components/Profile/Profile";
+import { ToastContainer } from "react-toastify";
+import { useMemo } from "react";
 
 function App() {
-  const [user, setUser] = useState(null);
   const loginPage = useMemo(() => <Login />, []);
 
-  const login = useCallback((newUser) => {
-    setUser(newUser);
-  }, []);
-
-  const contextValue = useMemo(
-    () => ({
-      user,
-      login,
-    }),
-    [user, login]
-  );
-
-  useEffect(() => {
-    if (user) {
-      localStorage.setItem("appState", JSON.stringify(user));
-    }
-  }, [user]);
-
-  useEffect(() => {
-    const savedState = localStorage.getItem("appState");
-    if (savedState) {
-      login(JSON.parse(savedState));
-    }
-  }, []);
-
   return (
-    <UserContext.Provider value={{ contextValue }}>
+    <AuthProvider>
       <BrowserRouter>
         <Header />
         <Routes>
@@ -48,10 +25,12 @@ function App() {
           <Route exact path={"/posts/:id"} element={<Post />} />
           <Route path={"/signin"} element={loginPage} />
           <Route path={"/signup"} element={loginPage} />
+          <Route path={"/profile"} element={<Profile />} />
         </Routes>
         <Footer />
+        <ToastContainer />
       </BrowserRouter>
-    </UserContext.Provider>
+    </AuthProvider>
   );
 }
 

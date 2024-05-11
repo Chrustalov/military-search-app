@@ -3,13 +3,23 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useState } 
 export const UserContext = createContext({
     user: null,
     login: () => {},
+    logout : () => {},
+    isCompany: false,
 });
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
+    const [isCompany, setIsCompany] = useState(false);
 
     const login = useCallback((newUser) => {
       setUser(newUser);
+      setIsCompany(newUser.role === "organization");
+    }, []);
+
+    const logout = useCallback(() => {
+      setUser(null);
+      setIsCompany(false);
+      localStorage.removeItem("appState");
     }, []);
 
     useEffect(() => {
@@ -25,7 +35,9 @@ export const AuthProvider = ({ children }) => {
       }
     }, [login]);
 
-    return <UserContext.Provider value={{user, login}}>
+
+
+    return <UserContext.Provider value={{user, login, isCompany, logout}}>
         {children}
         </UserContext.Provider>;
 }

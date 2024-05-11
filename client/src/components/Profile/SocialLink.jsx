@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 // import { getIcon } from "../icons";
 import { Link } from "react-router-dom";
+import { FaFacebook, FaGoogle, FaInstagram, FaTelegram } from "react-icons/fa";
 
 function SocialLink({
   link,
@@ -9,7 +10,7 @@ function SocialLink({
   isNew = false,
   isLink = false,
 }) {
-  const [copyLink, setCopyLink] = useState(link);
+  const [copyLink, setCopyLink] = useState(link[link.key]);
   const [isEditing, setIsEditing] = useState(false);
 
   const onChange = useCallback((e) => {
@@ -46,7 +47,7 @@ function SocialLink({
       onDoubleClick={onDoubleClick}
       className="list-group-item d-flex justify-content-between align-items-center p-3"
     >
-      {/* {getIcon(link)} */}
+      {getIcon(link)}
       {isLink && !isEditing ? (
         <Link
           to={copyLink}
@@ -67,6 +68,19 @@ function SocialLink({
       )}
     </li>
   );
+}
+
+function getIcon(link) {
+  try {
+    if (link.key.includes("facebook")) {
+      return <FaFacebook />;
+    } else if (link.key.includes("instagram")) {
+      return <FaInstagram />;
+    } else if (link.key.includes("telegram")) {
+      return <FaTelegram />;
+    }
+  } catch (e) {}
+  return <FaGoogle />;
 }
 
 export default SocialLink;

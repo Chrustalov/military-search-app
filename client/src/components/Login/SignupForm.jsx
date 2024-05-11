@@ -115,7 +115,6 @@ function SignupForm({ isNewUser, changeForm, login }) {
           title={"Волонтер"}
           id={"volunteer"}
           onChange={setIsVolunteer}
-          defaultValue={true}
         />
 
         <LoginFooter
@@ -129,7 +128,7 @@ function SignupForm({ isNewUser, changeForm, login }) {
   );
 }
 
-function LoginCheckBox({ onChange, title, id, defaultValue = false }) {
+function LoginCheckBox({ onChange, title, id, checked = false }) {
   return (
     <div className="d-flex align-content-center justify-content-center gap-2">
       <label
@@ -139,13 +138,12 @@ function LoginCheckBox({ onChange, title, id, defaultValue = false }) {
       >
         <span className="me-2">{title}</span>
         <input
-          className="rounded p-2 form-check-input "
+          className=" p-2 form-check-input "
           type={"radio"}
           radioGroup="isVolunteer"
           id={id}
           name="isVolunteer"
           onChange={onChange}
-          defaultValue={defaultValue}
         />
       </label>
     </div>

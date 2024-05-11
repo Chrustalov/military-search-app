@@ -9,7 +9,7 @@ import { useUser } from "../../contexts/UserContext";
 
 const Profile = () => {
   const { id } = useParams();
-  const { user } = useUser();
+  const { user, isCompany } = useUser();
   const [profile, setProfile] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const { toastError, toastSuccess } = useToastNotification();
@@ -30,9 +30,9 @@ const Profile = () => {
       axios
         .patch(
           "http://localhost:3001" +
-            "/" +
-            (user?.role == "Volonteer" ? "volunteer" : "organization") +
-            +"/profiles/" +
+            "/api/v1/" +
+            (!isCompany ? "volunteer" : "organization") +
+            "/profiles/" +
             newProfile.id,
           { profile: newProfile },
           {
@@ -59,10 +59,10 @@ const Profile = () => {
       axios
         .get(
           "http://localhost:3001" +
-            "/" +
-            (user?.role == "Volonteer" ? "volunteer" : "organization") +
-            +"/profiles" +
-            +(id ? "/" + id : ""),
+            "/api/v1/" +
+            (!isCompany ? "volunteer" : "organization") +
+            "/profiles" +
+            (id && !Number.isNaN(id) ? "/" + id : ""),
           {
             headers: id
               ? { "content-type": "application/json" }
@@ -80,12 +80,14 @@ const Profile = () => {
             Object.keys(data.profile)
               .filter((key) => key.includes("link"))
               .map((key) => ({
-                key: data.profile[key],
+                key,
+                [key]: data.profile[key],
               }))
           );
         })
         .catch((error) => {
-          toastError(error.message);
+          console.log(error);
+          toastError(error?.message);
           // navigation("/signin");
         });
     };
@@ -140,7 +142,7 @@ const Profile = () => {
               isEditing={isEditing}
               onEditProfile={onEditProfile}
               onCancel={onCancel}
-              isCompany={user?.role != "volonteer"}
+              isCompany={isCompany}
             />
           </div>
         </div>

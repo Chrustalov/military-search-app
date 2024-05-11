@@ -4,7 +4,15 @@ class Users::RegistrationsController < Devise::RegistrationsController
   include RackSessionsFix
   respond_to :json
 
+  after_action :create_profile_broadast, only: [:create]
+
   private
+
+  def create_profile_broadast
+    return unless resource.persisted?
+    resource.create_broadcast
+    resource.create_profile # Припускається, що у користувача є асоціація has_one або has_many з профілем
+  end
 
   def respond_with(current_user, _opts = {})
     if resource.persisted?

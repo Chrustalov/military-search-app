@@ -109,13 +109,14 @@ function Login() {
   );
 
   async function Login(
-    { name, password, email, volunteer },
+    { name, password, email, volunteer = false },
     endPoint = "/login"
   ) {
+    console.log(process.env);
     try {
       const response = await axios
         .post(
-          "https://hackaton-9507e74b8c0c.herokuapp.com" + endPoint,
+          process.env.REACT_APP_API_URL + endPoint,
           {
             user: {
               name,

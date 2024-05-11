@@ -5,7 +5,7 @@ function LoginFooter({ changeForm, buttonTitle, linkText, linkClickText }) {
   return (
     <div>
       <button
-        className="login-input btn btn-outline-dark w-50"
+        className="login-input-text btn btn-outline-success p-3"
         style={{
           transition: "transform 0.5s ease-in",
         }}

@@ -78,7 +78,7 @@ function SignupForm({ isNewUser, changeForm, login }) {
           type={!showPassword ? "password" : "text"}
         >
           <button
-            className="position-absolute btn rounded-circle border-0  "
+            className="position-absolute h-100   btn rounded-circle border-0  "
             onClick={togglePassword}
           >
             <EyeIcon fill={"#000"} isOpen={showPassword} />
@@ -93,7 +93,7 @@ function SignupForm({ isNewUser, changeForm, login }) {
           type={!showPassword ? "password" : "text"}
         >
           <button
-            className="position-absolute btn rounded-circle border-0  "
+            className="position-absolute h-100 btn rounded-circle border-0  "
             onClick={togglePassword}
           >
             <EyeIcon fill={"#000"} isOpen={showPassword} />
@@ -104,13 +104,12 @@ function SignupForm({ isNewUser, changeForm, login }) {
           title={"Компанія"}
           id={"company"}
           onChange={setIsCompany}
-          value={isVolunteer}
         />
         <LoginCheckBox
           title={"Волонтер"}
           id={"volunteer"}
           onChange={setIsVolunteer}
-          value={isVolunteer}
+          defaultValue={true}
         />
 
         <LoginFooter
@@ -124,7 +123,7 @@ function SignupForm({ isNewUser, changeForm, login }) {
   );
 }
 
-function LoginCheckBox({ onChange, value, title, id }) {
+function LoginCheckBox({ onChange, title, id, defaultValue = false }) {
   return (
     <div className="d-flex align-content-center justify-content-center gap-2">
       <label
@@ -134,13 +133,13 @@ function LoginCheckBox({ onChange, value, title, id }) {
       >
         <span className="me-2">{title}</span>
         <input
-          className="rounded p-2 form-check-input login-input "
-          type="radio"
+          className="rounded p-2 form-check-input "
+          type={"radio"}
           radioGroup="isVolunteer"
           id={id}
-          name={id}
-          value={value}
+          name="isVolunteer"
           onChange={onChange}
+          defaultValue={defaultValue}
         />
       </label>
     </div>

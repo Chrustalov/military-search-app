@@ -41,10 +41,24 @@ function LoginForm({ isNewUser, changeForm, login }) {
         className="d-flex justify-content-center align-content-center flex-column py-3 h-100 text-center gap-3"
         onSubmit={handleSubmit}
       >
-        <LoginInput onChange={onChangeEmail} value={email} placeholder="Електронна пошта" id="email" required type={"email"} />
-        <LoginInput onChange={onChangePassword} value={password} placeholder="Пароль" id="password" required type={!showPassword ? "password" : "text"} >
+        <LoginInput
+          onChange={onChangeEmail}
+          value={email}
+          placeholder="Електронна пошта"
+          id="email"
+          required
+          type={"email"}
+        />
+        <LoginInput
+          onChange={onChangePassword}
+          value={password}
+          placeholder="Пароль"
+          id="password"
+          required
+          type={!showPassword ? "password" : "text"}
+        >
           <button
-            className="position-absolute btn rounded-circle border-0  "
+            className="position-absolute   h-100  btn rounded-circle border-0  "
             onClick={togglePassword}
           >
             <EyeIcon fill={"#000"} isOpen={showPassword} />
@@ -53,8 +67,12 @@ function LoginForm({ isNewUser, changeForm, login }) {
 
         <Link className="text-black me-4 footer-links">Забули пароль?</Link>
 
-        <LoginFooter changeForm={changeForm} buttonTitle={"Увійти"} linkText={"Якщо ви не зареєстровані, ви можете "} linkClickText={"зареєструватися"} />
-       
+        <LoginFooter
+          changeForm={changeForm}
+          buttonTitle={"Увійти"}
+          linkText={"Якщо ви не зареєстровані, ви можете "}
+          linkClickText={"зареєструватися"}
+        />
       </form>
     </div>
   );

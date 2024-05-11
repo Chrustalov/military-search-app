@@ -40,17 +40,6 @@
   @media screen and (max-width: 575px) {
     width: 100%;
     transform: translate(0) !important;
-
-    & input,
-    button {
-      width: 70% !important;
-      transition: all 0.6s ease-in-out !important;
-    }
-    transition: all 0.6s ease-in-out !important;
-
-    & input[type="checkbox"] {
-      width: auto !important;
-    }
   }
 
   @keyframes wavy {
@@ -74,4 +63,15 @@
   min-height: 550px;
   box-shadow: 0 14px 28px $low-green;
   margin: 2rem 0;
+}
+
+.login-input-text {
+  width: 70%;
+  margin: 5px 0;
+  border: 1px solid $normal-green;
+
+  &:focus {
+    border: 1px solid $dark-green;
+    background-color: #ffffff;
+  }
 }

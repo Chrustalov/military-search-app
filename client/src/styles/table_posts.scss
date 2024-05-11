@@ -1,0 +1,54 @@
+@import "./variables.scss";
+
+.table-green {
+  th {
+    font-size: 16px;
+    font-weight: 700;
+    color: $middle-green;
+  }
+  td {
+    padding: 5px;
+    font-size: 14px;
+    color: $dark-green;
+  }
+  img {
+    width: 85px;
+    height: 85px;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+  tbody {
+    height: 500px;
+  }
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  border: 1px solid $high-green;
+}
+
+table {
+  display: flex;
+  flex-flow: column;
+  width: 100%;
+  height: 400px;
+
+}
+
+thead {
+  flex: 0 0 auto;
+}
+
+tbody {
+  flex: 1 1 auto;
+  display: block;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+tr {
+  width: 100%;
+  display: table;
+  table-layout: fixed;
+}

@@ -18,11 +18,9 @@ class Posts::FilterService < BaseService
   private
 
   def filter_by_cities(posts = nil)
-    # select_users_requests if params[:id]
 
     posts_filtered = posts.present? ? posts : @scope
     return posts_filtered if params[:cities].nil? || params[:cities].empty?
-    binding.pry
     posts_filtered.joins(:city)
                   .where(cities: { name: params[:cities] })
                   .distinct

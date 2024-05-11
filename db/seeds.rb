@@ -37,5 +37,7 @@ Comment.create(text: 'Дякую за пост!', user_id: user1.id, post_id: po
 Broadcast.create(user_id: user1.id, is_telegram: true, is_email: false, only_my_city: true)
 
 # Створюємо записи про зниклих людей
-MissingPerson.create(first_name: 'Іван', last_name: 'Сидоров', information: 'Пропав безвісти.', post_id: post1.id, avatar: File.open('app/assets/avatar-und.png'))
-MissingPerson.create(first_name: 'Марія', last_name: 'Іванова', information: 'Шукаємо допомоги у пошуку.', post_id: post2.id, avatar: File.open('app/assets/avatar-und.png'))
+10.times do
+  MissingPerson.create(first_name: 'Іван', region: 'Вул. Вербіне', birthdate: '19 років', last_name: 'Нарденко', information: 'Пропав безвісти.', post_id: post1.id, avatar: File.open('app/assets/avatar-und.png'))
+  MissingPerson.create(first_name: 'Марія', region: 'Вул. Вербіне', birthdate: '19 років', last_name: 'Шевчук', information: 'Шукаємо допомоги у пошуку.', post_id: post2.id, avatar: File.open('app/assets/avatar-und.png'))
+end

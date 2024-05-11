@@ -51,7 +51,7 @@ const Profile = () => {
           toastError(error.message);
         });
     },
-    [user]
+    [isCompany, toastError]
   );
 
   useEffect(() => {
@@ -92,7 +92,7 @@ const Profile = () => {
         });
     };
     fetchUser();
-  }, [id, navigation, user]);
+  }, [id, isCompany, navigation, toastError, user]);
 
   const [links, setLinks] = useState([]);
 

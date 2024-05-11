@@ -143,14 +143,14 @@ function UserInfo({ profile, onEditProfile, isEditing, onCancel,  isCompany = fa
           {isEditing && (
             <div className="card-footer mt-5 d-flex justify-content-end gap-3">
               <button
-                className="btn btn-outline-dark flex-grow-1 "
+                className="btn btn-outline-success  flex-grow-1 "
                 onClick={onCancelClick}
               >
                 Скасувати
               </button>
 
               <button
-                className="btn btn-outline-dark flex-grow-1 "
+                className="btn btn-outline-success flex-grow-1 "
                 onClick={() => onEditProfile(state)}
                 type="submit"
                 form="edit-profile"

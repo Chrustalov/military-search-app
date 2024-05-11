@@ -7,11 +7,10 @@ import SignupForm from "../../components/Login/SignupForm";
 import LoginForm from "../../components/Login/LoginForm";
 import { useToastNotification } from "../../hooks/useToastNotification";
 
-
 function Login() {
   const location = useLocation();
   const navigation = useNavigate();
-  const {toastError, toastSuccess} = useToastNotification();
+  const { toastError, toastSuccess } = useToastNotification();
 
   useEffect(() => {
     setIsNewUser(location.pathname === "/signup");
@@ -125,7 +124,7 @@ function Login() {
               name,
               password,
               email,
-              role: volunteer ? 1 : 0,
+              role: volunteer ? 0 : 1,
             },
           },
           {

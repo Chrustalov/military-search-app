@@ -6,7 +6,7 @@ function FotoCard({
   aboutMe,
   onEditProfile,
   isEditing = false,
-  children
+  children,
 }) {
   return (
     <div className="col-lg-4 ">
@@ -14,7 +14,7 @@ function FotoCard({
         <div className="card-body text-center">
           <img
             src={
-                'https://hackaton-9507e74b8c0c.herokuapp.com' + avatarUrl ||
+              "http://localhost:3001" + avatarUrl ||
               "https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
             }
             alt="Фото профілю"
@@ -29,7 +29,7 @@ function FotoCard({
                 type="button"
                 data-mdb-button-init
                 data-mdb-ripple-init
-                className="btn btn-outline-dark ms-1 w-75"
+                className="btn btn-outline-success ms-1 w-75"
                 onClick={onEditProfile}
               >
                 Редагувати профіль
@@ -38,7 +38,7 @@ function FotoCard({
           </div>
         </div>
       </div>
-            {children}
+      {children}
     </div>
   );
 }

@@ -147,7 +147,7 @@ function Header() {
               </li>
             )}
 
-            {user ? (
+            {!user ? (
               <>
                 <li className="nav-item">
                   <NavLink className="nav-link" to={"signin"}>

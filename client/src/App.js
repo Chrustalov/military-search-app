@@ -11,6 +11,7 @@ import Login from "./pages/Login/Login";
 import Profile from "./components/Profile/Profile";
 import { ToastContainer } from "react-toastify";
 import { useMemo } from "react";
+import Create from "./pages/Create/Create";
 
 function App() {
   const loginPage = useMemo(() => <Login />, []);
@@ -26,6 +27,7 @@ function App() {
           <Route path={"/signin"} element={loginPage} />
           <Route path={"/signup"} element={loginPage} />
           <Route path={"/profile"} element={<Profile />} />
+          <Route path={"/create"} element={<Create />} />
         </Routes>
         <Footer />
         <ToastContainer />

@@ -2,8 +2,27 @@ class Api::V1::PostsController < ApplicationController
   before_action :set_post, only: %i[ show update destroy ], except: %i[ index ]
   
   def index
-    @posts = Post.all
-    render json: { posts: @posts }
+    if params[:title].blank? && params[:cities].blank?
+      @posts = Post.all
+    else
+      @posts = Posts::FilterService.call(Post.all, params)
+    end
+
+    @cities = City.where(id: params[:cities])
+
+    post_data_with_city = []
+
+    @posts.each do |post|
+      post_attributes = post.attributes.symbolize_keys
+
+      tag_names = post.city
+      post_attributes[:city] = tag_names
+      post_attributes[:photo] = post.photo.url
+
+      post_data_with_city << post_attributes
+    end
+
+    render json: { posts: post_data_with_city, cities: @cities, all_cities: City.all.pluck(:name)}
   end
 
   def show
@@ -39,7 +58,7 @@ class Api::V1::PostsController < ApplicationController
   def update
     if @post.update(post_params)
       users_to_mail.each do |user| 
-        VolunteerMailer.with(user: user,post: @post).job_email.deliver_now
+        VolunteerMailer.with(user: user,post: @post).job_email.deliver_later
       end
       render json: {post: @post,missing_person: @post.missing_person}
     else

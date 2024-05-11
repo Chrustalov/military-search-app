@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { FaFacebook, FaGoogle, FaInstagram, FaTwitter } from "react-icons/fa";
 
 
 function Footer() {
@@ -12,16 +13,16 @@ function Footer() {
 
         <div className="d-flex flex-wrap gap-2 ">
           <Link to={"/"} className="text-white me-4 footer-links">
-            {/* <Facebook fill={"#fff"} /> */}
+           <FaFacebook />
           </Link>
           <Link to={"/"} className="text-white me-4 footer-links">
-            {/* <Twitter fill={"#fff"} /> */}
+            <FaTwitter />
           </Link>
           <Link to={"/"} className="text-white me-4 footer-links">
-            {/* <Google fill={"#fff"} /> */}
+            <FaGoogle />
           </Link>
           <Link to={"/"} className="text-white me-4 footer-links">
-            {/* <Instagram fill={"#fff"} /> */}
+            <FaInstagram height={32} />
           </Link>
         </div>
       </section>

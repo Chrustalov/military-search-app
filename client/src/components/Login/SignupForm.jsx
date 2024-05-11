@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import EyeIcon from "./EyeIcon";
 import LoginInput from "./LoginInput";
 import LoginFooter from "./LoginFooter";
+import { useToastNotification } from "../../hooks/useToastNotification";
 
 function SignupForm({ isNewUser, changeForm, login }) {
   const [email, setEmail] = useState("");
@@ -10,6 +11,7 @@ function SignupForm({ isNewUser, changeForm, login }) {
   const [repeadPassword, setRepeadPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isVolunteer, setVolunteer] = useState(false);
+  const { toastError } = useToastNotification();
 
   const togglePassword = useCallback(() => {
     setShowPassword((prev) => !prev);
@@ -37,6 +39,10 @@ function SignupForm({ isNewUser, changeForm, login }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     e.stopPropagation();
+    if (password !== repeadPassword) {
+      toastError("Паролі не співпадають");
+      return false;
+    }
     login({ email, password, isVolunteer }, "/signup");
     return false;
   };

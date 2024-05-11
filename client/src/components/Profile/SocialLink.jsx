@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { getIcon } from "../icons";
+// import { getIcon } from "../icons";
 import { Link } from "react-router-dom";
 
 function SocialLink({
@@ -46,7 +46,7 @@ function SocialLink({
       onDoubleClick={onDoubleClick}
       className="list-group-item d-flex justify-content-between align-items-center p-3"
     >
-      {getIcon(link)}
+      {/* {getIcon(link)} */}
       {isLink && !isEditing ? (
         <Link
           to={copyLink}

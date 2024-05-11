@@ -75,3 +75,14 @@
     background-color: #ffffff;
   }
 }
+
+.dropzone {
+  border: 2px dashed var(--blucolor);
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.1s;
+  &:hover {
+    border-width: 3px ;
+    scale: 1.05;
+  }
+}

@@ -4,12 +4,15 @@ import { useNavigate, useParams } from "react-router-dom";
 import FotoCard from "./FotoCard";
 import SocialLinks from "./SocialLinks";
 import UserInfo from "./UserInfo";
+import { useToastNotification } from "../../hooks/useToastNotification";
+import { useUser } from "../../contexts/UserContext";
 
 const Profile = () => {
   const { id } = useParams();
-  const [user, setUser] = useState(null);
+  const { user } = useUser();
   const [profile, setProfile] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
+  const { toastError, toastSuccess } = useToastNotification();
 
   const navigation = useNavigate();
 
@@ -21,56 +24,75 @@ const Profile = () => {
     setIsEditing(false);
   }, []);
 
-  const onEditProfile = useCallback((newProfile) => {
-    console.log("Save new profile", newProfile);
-    axios
-      .patch(
-        "PROFILE_URL" + "/" + newProfile.id,
-        { profile: newProfile },
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            authorization: localStorage.getItem("token"),
-          },
-        }
-      )
-      .then((resp) => resp.data)
-      .then((data) => {
-        setProfile(data.profile);
-        setIsEditing(false);
-      })
-      .catch((error) => {});
-  }, []);
+  const onEditProfile = useCallback(
+    (newProfile) => {
+      console.log("Save new profile", newProfile);
+      axios
+        .patch(
+          "http://localhost:3001" +
+            "/" +
+            (user?.role == "Volonteer" ? "volunteer" : "organization") +
+            +"/profiles/" +
+            newProfile.id,
+          { profile: newProfile },
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              authorization: localStorage.getItem("token"),
+            },
+          }
+        )
+        .then((resp) => resp.data)
+        .then((data) => {
+          setProfile(data.profile);
+          setIsEditing(false);
+        })
+        .catch((error) => {
+          toastError(error.message);
+        });
+    },
+    [user]
+  );
 
   useEffect(() => {
     const fetchUser = async () => {
       axios
-        .get("PROFILE_URL" + (id ? "/" + id : ""), {
-          headers: id
-            ? { "content-type": "application/json" }
-            : {
-                "content-type": "application/json",
-                authorization: localStorage.getItem("token"),
-              },
-        })
+        .get(
+          "http://localhost:3001" +
+            "/" +
+            (user?.role == "Volonteer" ? "volunteer" : "organization") +
+            +"/profiles" +
+            +(id ? "/" + id : ""),
+          {
+            headers: id
+              ? { "content-type": "application/json" }
+              : {
+                  "content-type": "application/json",
+                  authorization: localStorage.getItem("token"),
+                },
+          }
+        )
         .then((resp) => resp.data)
         .then((data) => {
           console.log(data);
-          setUser(data.user);
           setProfile(data.profile);
+          setLinks(
+            Object.keys(data.profile)
+              .filter((key) => key.includes("link"))
+              .map((key) => ({
+                key: data.profile[key],
+              }))
+          );
         })
         .catch((error) => {
-          navigation("/signin");
+          toastError(error.message);
+          // navigation("/signin");
         });
     };
     fetchUser();
-  }, [id, navigation]);
+  }, [id, navigation, user]);
 
-  const [links, setLinks] = useState([
-    "https://www.facebook.com/",
-    "https://www.g.com/",
-    "https://www.instagram.com/",
-  ]);
+  const [links, setLinks] = useState([]);
 
   const addLink = useCallback((newLink) => {
     setLinks((prev) => [...prev, newLink]);
@@ -101,7 +123,7 @@ const Profile = () => {
               <FotoCard
                 aboutMe={profile?.about_me}
                 avatarUrl={profile?.avatar.url}
-                name={user.name}
+                name={profile?.organization_name}
                 isEditing={isEditing && !id}
                 onEditProfile={editProfile}
               >
@@ -118,6 +140,7 @@ const Profile = () => {
               isEditing={isEditing}
               onEditProfile={onEditProfile}
               onCancel={onCancel}
+              isCompany={user?.role != "volonteer"}
             />
           </div>
         </div>

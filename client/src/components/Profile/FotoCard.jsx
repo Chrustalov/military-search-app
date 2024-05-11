@@ -2,7 +2,7 @@ import React from "react";
 
 function FotoCard({
   avatarUrl,
-  name,
+  name = null,
   aboutMe,
   onEditProfile,
   isEditing = false,
@@ -17,11 +17,11 @@ function FotoCard({
                 'https://hackaton-9507e74b8c0c.herokuapp.com' + avatarUrl ||
               "https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
             }
-            alt="avatar"
+            alt="Фото профілю"
             className="rounded-circle img-fluid"
             style={{ width: "150px" }}
           />
-          <h5 className="my-3">{name}</h5>
+          {name && <h5 className="my-3">{name}</h5>}
           <p className="text-muted mb-1">{aboutMe}</p>
           <div className="d-flex justify-content-center mb-2">
             {!isEditing && (
@@ -32,7 +32,7 @@ function FotoCard({
                 className="btn btn-outline-dark ms-1 w-75"
                 onClick={onEditProfile}
               >
-                Edit profile
+                Редагувати профіль
               </button>
             )}
           </div>

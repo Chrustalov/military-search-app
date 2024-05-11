@@ -1,14 +1,17 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../../styles/login.scss";
 import { UserContext } from "../../contexts/UserContext";
 import SignupForm from "../../components/Login/SignupForm";
 import LoginForm from "../../components/Login/LoginForm";
+import { useToastNotification } from "../../hooks/useToastNotification";
+
 
 function Login() {
   const location = useLocation();
   const navigation = useNavigate();
+  const {toastError, toastSuccess} = useToastNotification();
 
   useEffect(() => {
     setIsNewUser(location.pathname === "/signup");
@@ -116,7 +119,7 @@ function Login() {
     try {
       const response = await axios
         .post(
-          process.env.REACT_APP_API_URL + endPoint,
+          "http://localhost:3001" + endPoint,
           {
             user: {
               name,
@@ -142,10 +145,13 @@ function Login() {
       } else {
         data_user = data.status.data.user;
       }
+      console.log(data_user);
       contextValue.login(data_user);
       localStorage.setItem("token", response.headers.get("Authorization"));
+      toastSuccess("Успішний вхід");
       navigation("/");
     } catch (err) {
+      toastError(err.message);
       console.log("error", err);
     }
   }

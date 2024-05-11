@@ -1,18 +1,20 @@
 import React, { useCallback, useEffect } from "react";
 import UserInfoElement from "./UserInfoElement";
 import { useReducer } from "react";
-import DropFoto from "../DropFoto";
+import DropFoto from "./DropFoto";
 
 const initialState = {
   first_name: "",
-  last_name: "",
-  phone_number: "",
-  city: "",
+  second_name: "",
+  first_phone: "",
+  second_phone: "",
   about_me: "",
   avatar: null,
+  organization_name: "",
 };
 
-function UserInfo({ profile, onEditProfile, isEditing, onCancel }) {
+
+function UserInfo({ profile, onEditProfile, isEditing, onCancel,  isCompany = false }) {
   const [state, dispatch] = useReducer(reducer, initialState);
   
   useEffect(() => {
@@ -27,25 +29,40 @@ function UserInfo({ profile, onEditProfile, isEditing, onCancel }) {
   const setAvatar = useCallback((file) => {
     dispatch({ type: "SET_AVATAR", payload: file });
   }, []);
+
   const onFirstNameChange = useCallback((e) => {
     dispatch({ type: "SET_FIRST_NAME", payload: e.target.value });
   }, []);
+
   const onLastNameChange = useCallback((e) => {
     dispatch({ type: "SET_LAST_NAME", payload: e.target.value });
   }, []);
-  const onPhoneNumberChange = useCallback((e) => {
-    dispatch({ type: "SET_PHONE_NUMBER", payload: e.target.value });
+
+  const onFirstPhoneChange = useCallback((e) => {
+    dispatch({ type: "SET_FIRST_PHONE", payload: e.target.value });
   }, []);
+
+  const onSecondPhoneChange = useCallback((e) => {
+    dispatch({ type: "SET_SECOND_PHONE", payload: e.target.value });
+  }, []);
+
   const onCityChange = useCallback((e) => {
     dispatch({ type: "SET_CITY", payload: e.target.value });
   }, []);
+
   const onAboutMeChange = useCallback((e) => {
     dispatch({ type: "SET_ABOUT_ME", payload: e.target.value });
   }, []);
+
+  const onOrganizationChange = useCallback((e) => {
+    dispatch({ type: "SET_ORGANIZATION_NAME", payload: e.target.value });
+  }, []);
+
   const onCancelClick = useCallback(() => {
     dispatch({ type: "SET_STATE", payload: profile });
     onCancel();
   }, [profile, onCancel]);
+
 
   return (
     <>
@@ -68,48 +85,68 @@ function UserInfo({ profile, onEditProfile, isEditing, onCancel }) {
               return false;
             }}
           >
+            {isCompany ? (
+              <UserInfoElement
+                name={"Ім'я організації"}
+                value={state.organization_name}
+                isEditing={isEditing}
+                onChange={onOrganizationChange}
+              />
+            ) : (
+              <>
+                <UserInfoElement
+                  name={"Ім'я"}
+                  value={state.first_name}
+                  isEditing={isEditing}
+                  onChange={onFirstNameChange}
+                />
+                <hr />
+                <UserInfoElement
+                  name={"Прізвище"}
+                  value={state.last_name}
+                  isEditing={isEditing}
+                  onChange={onLastNameChange}
+                />
+              </>
+            )}
+            <hr />
+
             <UserInfoElement
-              name={"First name"}
-              value={state.first_name}
+              name={"Номер телефону"}
+              value={state.first_phone}
               isEditing={isEditing}
-              onChange={onFirstNameChange}
+              onChange={onFirstPhoneChange}
             />
             <hr />
             <UserInfoElement
-              name={"Last name"}
-              value={state.last_name}
+              name={"Додатковий номер телефону"}
+              value={state.second_phone}
               isEditing={isEditing}
-              onChange={onLastNameChange}
+              onChange={onSecondPhoneChange}
             />
             <hr />
             <UserInfoElement
-              name={"Phone"}
-              value={state.phone_number}
-              isEditing={isEditing}
-              onChange={onPhoneNumberChange}
-            />
-            <hr />
-            <UserInfoElement
-              name={"Sity"}
+              name={"Місто"}
               value={state.city}
               isEditing={isEditing}
               onChange={onCityChange}
             />
             <hr />
             <UserInfoElement
-              name={"About me"}
+              name={isCompany ? "Про організацію" : "Про мене"}
               value={state.about_me}
               isEditing={isEditing}
               onChange={onAboutMeChange}
             />
           </form>
+
           {isEditing && (
             <div className="card-footer mt-5 d-flex justify-content-end gap-3">
               <button
                 className="btn btn-outline-dark flex-grow-1 "
                 onClick={onCancelClick}
               >
-                Cancel
+                Скасувати
               </button>
 
               <button
@@ -118,7 +155,7 @@ function UserInfo({ profile, onEditProfile, isEditing, onCancel }) {
                 type="submit"
                 form="edit-profile"
               >
-                Save
+                Зберегти
               </button>
             </div>
           )}
@@ -128,16 +165,18 @@ function UserInfo({ profile, onEditProfile, isEditing, onCancel }) {
   );
 }
 
-function reducer(state, action) {
+function reducer(state = initialState, action) {
   switch (action.type) {
     case "SET_STATE":
       return { ...state, ...(action.payload || initialState) };
     case "SET_FIRST_NAME":
       return { ...state, first_name: action.payload };
     case "SET_LAST_NAME":
-      return { ...state, last_name: action.payload };
+      return { ...state, second_name: action.payload };
     case "SET_PHONE_NUMBER":
-      return { ...state, phone_number: action.payload };
+      return { ...state, first_phone: action.payload };
+    case "SET_SECOND_PHONE":
+      return { ...state, second_phone: action.payload };
     case "SET_CITY":
       return { ...state, city: action.payload };
     case "SET_ABOUT_ME":
@@ -145,6 +184,8 @@ function reducer(state, action) {
     case "SET_AVATAR":
       console.log("reducer SET_AVATAR ", action.payload, state.avatar);
       return { ...state, avatar: action.payload };
+    case "SET_ORGANIZATION_NAME":
+      return { ...state, organization_name: action.payload };
     default:
       return state;
   }

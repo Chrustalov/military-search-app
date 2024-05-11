@@ -8,8 +8,8 @@ function SocialLinks({ links = [], addLink, removeLink, editLink }) {
     setElements(
       links.map((link, index) => (
         <SocialLink
-          key={link}
-          link={link}
+          key={link.key}
+          link={link[link.key]}
           isNew={index === links.length - 1 && !link}
           onEditLink={(newLink) => editLink(index, newLink)}
           onRemoveLink={() => removeLink(index)}
@@ -34,7 +34,7 @@ function SocialLinks({ links = [], addLink, removeLink, editLink }) {
               className="btn btn-outline-dark w-75"
               onClick={onAddLink}
             >
-              Add link
+              Додати посилання
             </button>
           </li>
         </ul>

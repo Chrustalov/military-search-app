@@ -57,34 +57,42 @@ function Home() {
     ];
 
     return (
-        <main className="container">
-            <section className="intro">
-                <div className="intro__left">
-                    <img src="/images/intro.png" alt="Допоможи знайти зниклих"/>
-                </div>
-                <div className="intro__right">
-                    <h2 className="intro__title">Допоможи знайти – разом ми сильніші</h2>
-                    <p className="intro__text">
-                        Наша платформа є центром об'єднання зусиль людей з усього світу, які прагнуть знайти
-                        та повернути додому зниклих у зоні військового конфлікту. Тут добровольці, рятувальні служби та
-                        громадські організації знаходяться пліч-о-пліч, щоб забезпечити максимальну ефективність пошуку.
-                    </p>
-                    <button>Переглянути публікації</button>
-                    <div className="intro__question">Бажаєте стати добровольцем?</div>
-                    <button>Стати добровольцем</button>
-                </div>
-            </section>
-            <section className="features">
-                {features.map((item) => (
-                    <Feature key={item.title} {...item}/>
-                ))}
-            </section>
-            <section className="advantages">
-                <h1 className="advantages__title">Переваги нашої платформи</h1>
-                <AdvantageTab tabs={tabs} />
-            </section>
-        </main>
-    )
+      <main className="container">
+        <section className="intro">
+          <div className="intro__left">
+            <img src="/images/intro.png" alt="Допоможи знайти зниклих" />
+          </div>
+          <div className="intro__right">
+            <h2 className="intro__title">
+              Допоможи знайти – разом ми сильніші
+            </h2>
+            <p className="intro__text">
+              Наша платформа є центром об'єднання зусиль людей з усього світу,
+              які прагнуть знайти та повернути додому зниклих у зоні військового
+              конфлікту. Тут добровольці, рятувальні служби та громадські
+              організації знаходяться пліч-о-пліч, щоб забезпечити максимальну
+              ефективність пошуку.
+            </p>
+            <button className=" btn btn-outline-success p-2">
+              Переглянути публікації
+            </button>
+            <div className="intro__question">Бажаєте стати добровольцем?</div>
+            <button className=" btn btn-outline-success p-2">
+              Стати добровольцем
+            </button>
+          </div>
+        </section>
+        <section className="features">
+          {features.map((item) => (
+            <Feature key={item.title} {...item} />
+          ))}
+        </section>
+        <section className="advantages">
+          <h1 className="advantages__title">Переваги нашої платформи</h1>
+          <AdvantageTab tabs={tabs} />
+        </section>
+      </main>
+    );
 }
 
 export default Home;

@@ -1,30 +1,22 @@
 class Api::V1::PostsController < ApplicationController
-  before_action :set_post, only: %i[ show update destroy ]
+  before_action :set_post, only: %i[ show update destroy ], except: %i[ index ]
+  
   def index
-    @posts = @posts.all
-
-    post_data = []
-
-    @posts.each do |post|
-      post_attributes = post.attributes.symbolize_keys      
-      post_attributes.missing_person = post.missing_person
-      post_data << post_attributes
-    end
-    render json: {posts: post_data}
+    @posts = Post.all
+    render json: {posts: @posts}
   end
 
   def show 
-    render json: {post: @post, missing_person: @post.missing_person, creator: @post.user}
+    render json: {post: @post, missing_people: @post.missing_people, creator: @post.user}
   end
 
   def create
     @post = current_user.posts.build(post_params)
     if @post.save
-      person = MissingPerson.new(missing_person_params)
-      person.post_id = @post.id
-      if person.save() 
-        render json: {post: @post,missing_person: @post.missing_person}
+      params[:missing_people].each do |person_params|
+        @post.missing_people.create(missing_person_params(person_params))
       end
+        render json: {post: @post,missing_person: @post.missing_people}
     else
       render json: @post.errors, status: :unprocessable_entity
     end
@@ -45,10 +37,11 @@ class Api::V1::PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:title, :status, :content, :profile)
+    params.require(:post).permit(:title, :status, :content, :photo)
   end
 
-  def missing_person_params
-    params.require(:missing_person).permit(:first_name, :last_name, :avatar, :birthdate, :city_id, :region, :information)
+
+  def missing_person_params(person_params)
+    person_params.permit(:first_name, :last_name, :avatar, :birthdate, :city_id, :region, :information)
   end
 end

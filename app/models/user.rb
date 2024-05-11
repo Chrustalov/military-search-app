@@ -7,6 +7,8 @@ class User < ApplicationRecord
    :recoverable, :validatable,
    :jwt_authenticatable, jwt_revocation_strategy: self
   has_one :profile, dependent: :destroy
+  has_one :broadcast, dependent: :destroy
   has_many :posts
   enum role: { user: 0, moderator: 1 }
+
 end

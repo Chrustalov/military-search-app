@@ -10,9 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_05_11_135331) do
+ActiveRecord::Schema[7.0].define(version: 2024_05_11_164143) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "broadcasts", force: :cascade do |t|
+    t.boolean "is_telegram"
+    t.boolean "is_email"
+    t.boolean "only_my_city"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_broadcasts_on_user_id"
+  end
 
   create_table "cities", force: :cascade do |t|
     t.string "name"
@@ -52,12 +62,13 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_11_135331) do
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "photo"
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
   create_table "profiles", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.bigint "city_id", null: false
+    t.bigint "city_id"
     t.string "first_phone"
     t.string "second_phone"
     t.text "about_me"
@@ -69,6 +80,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_11_135331) do
     t.string "avatar"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "organization_name"
     t.index ["city_id"], name: "index_profiles_on_city_id"
     t.index ["user_id"], name: "index_profiles_on_user_id"
   end
@@ -76,7 +88,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_11_135331) do
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
-    t.integer "role"
+    t.integer "role", default: 0
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -88,6 +100,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_11_135331) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "broadcasts", "users"
   add_foreign_key "comments", "posts"
   add_foreign_key "comments", "users"
   add_foreign_key "missing_people", "cities"

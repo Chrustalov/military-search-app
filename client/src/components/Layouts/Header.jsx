@@ -92,7 +92,7 @@ function Header() {
     <header className="sticky-top header-underline bg-white ">
       <nav className="navbar navbar-expand-custom p-0">
         <NavLink className="navbar-brand navbar-logo text-black" to={"/"}>
-          text
+          <img src="/images/logo.svg" alt="Unity Rescue Platform | Об'єднай людей"/>
         </NavLink>
 
         <button

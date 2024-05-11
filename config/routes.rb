@@ -10,7 +10,13 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resource :posts
+      resources :posts
+      namespace :volunteer do 
+        resources :profiles
+      end
+      namespace :organization do 
+        resources :profiles
+      end
     end
   end
 end

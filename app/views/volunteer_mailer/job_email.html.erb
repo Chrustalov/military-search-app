@@ -1,20 +1,63 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
-  </head>
-  <body>
-    <h1><%= @user %>, ви отримали нове сповіщення</h1>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 800px;
+      margin: 20% auto;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+    }
+    h1 {
+      color: #333;
+    }
+    h3 {
+      color: #666;
+    }
+    h5 {
+      color: #444;
+    }
+    a {
+      color: #007bff;
+      text-decoration: none;
+    }
+    p {
+      color: #777;
+    }
+
+    .button {
+      display: inline-block;
+      background-color: #007bff;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 5px;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1><%= @user.role== "volunteer" ? (@user.profile.first_name || "Незнайомцю") : (@user.profile.organization_name|| "Незнайомцю" )%>, ви отримали нове сповіщення</h1>
     <h3>
-        Місто: <%= @city.name %>.<br>
+      Місто: <%= @city.name %>.<br>
     </h3>
-      <h5>
-        <%= @post.title %>
-      </h5>
-      <a>
-        <%= @post.content %>
-      </a>
+    <h5>
+      <%= @post.title %>
+    </h5>
+    <p>
+      <%= @post.content %>
     </p>
     <p>Дякуємо за увагу, за додатковою інформацією перегляньте наш сайт!</p>
-  </body>
+    <a href="<%= @url%><%= @post.id %>" class="button">Перейти на сайт</a>
+  </div>
+</body>
 </html>

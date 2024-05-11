@@ -5,7 +5,8 @@ class VolunteerMailer < ApplicationMailer
       @post = params[:post]
       @city = @post.city
       @user = params[:user]
-      @url  = 'http://example.com/login'
+      @url  = ' https://military-app-search.netlify.app/posts/'
+      #змінити на сервері
       mail(to: @user.email, subject: 'We have anoucment for you')
     # винести в контроллер
 

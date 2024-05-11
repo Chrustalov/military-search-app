@@ -58,7 +58,7 @@ class Api::V1::PostsController < ApplicationController
   def update
     if @post.update(post_params)
       users_to_mail.each do |user| 
-        VolunteerMailer.with(user: user,post: @post).job_email.deliver_now
+        VolunteerMailer.with(user: user,post: @post).job_email.deliver_later
       end
       render json: {post: @post,missing_person: @post.missing_person}
     else

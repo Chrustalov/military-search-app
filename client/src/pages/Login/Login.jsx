@@ -1,8 +1,7 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../../styles/login.scss";
-import { FaFacebook, FaGoogle, FaTwitter } from "react-icons/fa";
 import { UserContext } from "../../contexts/UserContext";
 import SignupForm from "../../components/Login/SignupForm";
 import LoginForm from "../../components/Login/LoginForm";
@@ -16,30 +15,7 @@ function Login() {
   }, [location]);
 
   const [isNewUser, setIsNewUser] = useState(true);
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
-  const [volunteer, setVolunteer] = useState(false);
   const contextValue = useContext(UserContext);
-
-  const togglePassword = useCallback(() => {
-    setShowPassword((prev) => !prev);
-  }, []);
-
-  const toggleVolunteer = useCallback(() => {
-    setVolunteer((prev) => !prev);
-  }, []);
-
-  const onChangename = useCallback((e) => {
-    setName(e.target.value);
-  }, []);
-  const onChangeEmail = useCallback((e) => {
-    setEmail(e.target.value);
-  }, []);
-  const onChangePassword = useCallback((e) => {
-    setPassword(e.target.value);
-  }, []);
 
   const changeForm = () => {
     navigation(location.pathname === "/signup" ? "/signin" : "/signup", {
@@ -47,30 +23,26 @@ function Login() {
     });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    if (isNewUser) {
-      Login({ email, password, name, volunteer }, "/signup");
-    } else {
-      Login({ email, password });
-    }
-    return false;
-  };
-
   return (
     <main className="d-flex align-content-center justify-content-center my-3">
       <div
         className="position-relative overflow-hidden mw-100 rounded"
-        style={{
-          width: "80%",
-          minHeight: "550px",
-          boxShadow: "0 14px 28px #5161ce",
-        }}
         id="container"
       >
-        <SignupForm  {...{showPassword, isNewUser, name, email, password, volunteer, onChangename, onChangeEmail, onChangePassword, toggleVolunteer, togglePassword, changeForm, handleSubmit }} />
-        <LoginForm {...{ isNewUser, email, password, showPassword, togglePassword, onChangeEmail, onChangePassword, changeForm, handleSubmit }} />
+        <SignupForm
+          {...{
+            isNewUser,
+            changeForm,
+            login: Login,
+          }}
+        />
+        <LoginForm
+          {...{
+            isNewUser,
+            changeForm,
+            login: Login,
+          }}
+        />
 
         <div
           className="position-absolute top-0 start-50 w-50 h-100 overflow-hidden d-none d-sm-block "
@@ -137,13 +109,14 @@ function Login() {
   );
 
   async function Login(
-    { name, password, email, volunteer },
+    { name, password, email, volunteer = false },
     endPoint = "/login"
   ) {
+    console.log(process.env);
     try {
       const response = await axios
         .post(
-          "https://hackaton-9507e74b8c0c.herokuapp.com" + endPoint,
+          process.env.REACT_APP_API_URL + endPoint,
           {
             user: {
               name,

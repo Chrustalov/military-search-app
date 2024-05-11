@@ -4,6 +4,7 @@ import AdvantageTab from "../../components/Home/AdvantageTab";
 import { MdOutlineContactSupport } from "react-icons/md";
 import { SiEasyeda } from "react-icons/si";
 import { BsFillChatDotsFill } from "react-icons/bs";
+import "../../styles/home.scss";
 
 function Home() {
     const features = [

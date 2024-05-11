@@ -1,0 +1,140 @@
+@import "./variables.scss";
+img {
+  max-width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#root {
+  min-height: 100%;
+  /* Flexbox styles */
+  display: flex;
+  flex-direction: column;
+}
+// INTRO PAGE
+
+.intro {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 60px 0 150px;
+  &__left {
+    width: 37%;
+    height: 70%;
+    img {
+      border-radius: 8px;
+    }
+  }
+  &__right {
+    width: 60%;
+  }
+  &__title {
+    font-size: 35px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: $high-green;
+    margin-bottom: 15px;
+  }
+  &__text {
+    font-size: 17px;
+    line-height: 1.8;
+    color: $middle-green;
+    margin-bottom: 25px;
+  }
+  &__question {
+    color: $high-green;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.2;
+    margin: 25px 0 15px;
+  }
+}
+
+.features {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 150px;
+  .feature {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+    flex-direction: column;
+    width: 32%;
+    svg {
+      width: 55px;
+      height: 50px;
+      margin: 0 auto 15px;
+    }
+    &__title {
+      font-size: 20px;
+      color: $low-green;
+      line-height: 1.2;
+      font-weight: 600;
+      margin-bottom: 15px;
+    }
+    &__content {
+      font-size: 16px;
+      color: $dark-green;
+      line-height: 1.6;
+      margin: 0;
+    }
+  }
+}
+
+.advantages {
+  margin-bottom: 100px;
+  &__title {
+    margin-bottom: 30px;
+    font-size: 35px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: $high-green;
+    display: flex;
+    align-items: center;
+    &::before {
+      content: "";
+      display: inline-block;
+      transform: rotate(45deg);
+      width: 10px;
+      height: 10px;
+      border-radius: 20%;
+      background: $dark-green;
+      margin-right: 15px;
+    }
+  }
+  .advantage__tabs {
+    display: flex;
+    justify-content: space-between;
+  }
+  .advantage-tabs__list {
+    list-style: none;
+    margin-right: 20px;
+    width: 28%;
+    .nav-tabs__item {
+      cursor: pointer;
+      color: $low-green;
+      padding: 12px 15px;
+      border: 1px solid $dark-green;
+      border-radius: 6px;
+      margin-bottom: 10px;
+      width: 100%;
+      &.active {
+        color: #fff;
+        background: $low-green;
+      }
+    }
+  }
+  .advantage-tabs__content {
+    width: 67%;
+    font-size: 18px;
+    color: $high-green;
+    line-height: 1.7;
+  }
+}

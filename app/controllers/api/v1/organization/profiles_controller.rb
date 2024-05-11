@@ -13,7 +13,7 @@ class Api::V1::Organization::ProfilesController < ApplicationController
     end
     def index
         if current_user.present?
-        render json: current_user
+        render json: {user: current_user, profile:current_user.profile}
         else
             render json: "Not Authorized", status: :unprocessable_entity
         end

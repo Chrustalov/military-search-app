@@ -15,7 +15,7 @@ class Api::V1::Volunteer::ProfilesController < ApplicationController
 
     def index
         if current_user.present?
-        render json: current_user
+            render json: {user: current_user, profile : current_user.profile, broadcast: current_user.broadcast}
         else
             render json: "Not Authorized", status: :unprocessable_entity
         end

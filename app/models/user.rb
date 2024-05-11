@@ -9,6 +9,6 @@ class User < ApplicationRecord
   has_one :profile, dependent: :destroy
   has_one :broadcast, dependent: :destroy
   has_many :posts
-  enum role: { user: 0, moderator: 1 }
+  enum role: { volunteer: 0, organization: 1 }
 
 end

@@ -3,10 +3,24 @@ $high-green: #18392b;
 $middle-green: #14452f;
 $normal-green: #0f5132;
 $low-green: #0a5c36;
+
 img {
   max-width: 100%;
   height: auto;
   object-fit: cover;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#root {
+  min-height: 100%;
+  /* Flexbox styles */
+  display: flex;
+  flex-direction: column;
 }
 
 // INTRO PAGE

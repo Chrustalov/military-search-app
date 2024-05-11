@@ -10,9 +10,68 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_05_11_101114) do
+ActiveRecord::Schema[7.0].define(version: 2024_05_11_121557) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "cities", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.text "text"
+    t.bigint "user_id", null: false
+    t.bigint "post_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["post_id"], name: "index_comments_on_post_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "missing_people", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "avatar"
+    t.date "birthdate"
+    t.bigint "city_id", null: false
+    t.string "region"
+    t.text "information"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "post_id", null: false
+    t.index ["city_id"], name: "index_missing_people_on_city_id"
+    t.index ["post_id"], name: "index_missing_people_on_post_id"
+  end
+
+  create_table "posts", force: :cascade do |t|
+    t.string "title"
+    t.integer "status"
+    t.string "image"
+    t.text "content"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_posts_on_user_id"
+  end
+
+  create_table "profiles", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "city_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "first_phone"
+    t.string "second_phone"
+    t.text "about_me"
+    t.string "telegram_link"
+    t.string "instagram_link"
+    t.string "facebook_link"
+    t.string "first_name"
+    t.string "second_name"
+    t.index ["city_id"], name: "index_profiles_on_city_id"
+    t.index ["user_id"], name: "index_profiles_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -27,4 +86,11 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_11_101114) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "comments", "posts"
+  add_foreign_key "comments", "users"
+  add_foreign_key "missing_people", "cities"
+  add_foreign_key "missing_people", "posts"
+  add_foreign_key "posts", "users"
+  add_foreign_key "profiles", "cities"
+  add_foreign_key "profiles", "users"
 end

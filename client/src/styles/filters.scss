@@ -1,0 +1,81 @@
+@import "./variables.scss";
+
+.form-select {
+  padding: 15px;
+  input {
+    width: 100%;
+    height: 30px;
+    border: 1px solid $middle-green;
+    border-radius: 5px;
+    &:focus {
+      box-shadow: none !important;
+      outline: none !important;
+    }
+  }
+  .ts-dropdown {
+    height: 130px;
+    overflow-y: scroll;
+    .option {
+      padding: 10px;
+      background-color: rgba(9, 89, 52, 0.5);
+      color: $dark-green;
+      font-weight: 500;
+      letter-spacing: 0.25px;
+      border-bottom: 1px solid #fff;
+    }
+  }
+  .ts-control {
+    .item {
+      display: inline-block;
+      padding: 4px;
+      border-radius: 4px;
+      background: $dark-green;
+      color: #fff;
+      font-weight: 500;
+      margin-bottom: 5px;
+      font-size: 16px;
+      margin-right: 10px;
+      a {
+        color: #ffffff;
+        text-decoration: none;
+        font-size: 16px;
+        margin: 0 4px;
+      }
+    }
+  }
+}
+
+.filters {
+  margin-bottom: 45px;
+  label {
+    color: $middle-green;
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+}
+
+.btn-outline-success {
+  padding: 12px 14px;
+}
+
+#cities {
+  visibility: hidden;
+  display: none;
+}
+
+h3 {
+  color: $high-green;
+  margin-bottom: 15px;
+}
+
+.search-input {
+  margin-bottom: 25px;
+  input {
+    border: 1px solid $high-green;
+    &:focus {
+      box-shadow: none !important;
+      outline: none !important;
+    }
+  }
+}

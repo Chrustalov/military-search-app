@@ -5,12 +5,13 @@ class Api::V1::Volunteer::ProfilesController < ApplicationController
         render json: { user: @user, profile: @user.profile}
     end
     
-    def update 
-        if current_user && @profile.update(profile_params) && @broadcast.update(broadcast_params)  
+    def update
+        city = City.find_by(name: params[:profile][:city])
+        if current_user && @profile.update(profile_params.merge(user_id: current_user.id, city_id: city.id)) && @broadcast.update(broadcast_params)
             render json: { user: current_user, profile: @profile, broadcast: @broadcast}
-          else
+        else
             render json: @request.errors, status: :unprocessable_entity
-          end
+      end
     end
 
     def index
@@ -31,7 +32,7 @@ class Api::V1::Volunteer::ProfilesController < ApplicationController
         @broadcast = @profile.user.broadcast
     end
     def profile_params
-        params.require(:profile).permit(:first_name, :second_name, :about_me,:first_phone,
+        params.require(:profile).permit(:first_name, :second_name, :about_me, :first_phone,
         :second_phone, :city_id, :telegram_link, :avatar, :facebook_link )
     end
 

@@ -6,6 +6,7 @@ import LatestPost from "../../components/Posts/LatestPost";
 import PostTableItem from "../../components/Posts/PostTableItem";
 import PostDetailSkeleton from "../../components/Posts/PostDetailSkeleton";
 import { FaInstagram, FaFacebook, FaTelegram } from "react-icons/fa";
+import PostTable from "../../components/Posts/PostTable";
 
 const url = process.env.REACT_APP_API_URL + "/api/v1/posts/";
 
@@ -66,29 +67,9 @@ function Post() {
                                     { post.content }
                                 </div>
                             </article>
-                            <div className="widget widget-missing-people">
-                                <div className="widget missing-people">
-                                    <h3>Зниклі особи</h3>
-                                </div>
-                                <table className="table table-green">
-                                    <thead>
-                                    <tr>
-                                        <th scope="col">Фото</th>
-                                        <th scope="col">Ім'я</th>
-                                        <th scope="col">Вік</th>
-                                        <th scope="col">Регіон</th>
-                                        <th scope="col">Відомості</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    {
-                                        missing_people.map((item) => (
-                                            <PostTableItem key={item.title} {...item}/>
-                                        ))
-                                    }
-                                    </tbody>
-                                </table>
-                            </div>
+                            
+                            <PostTable missing_people={missing_people} />
+                            
                         </div>
                         <div className="col-lg-4 m-15px-tb">
                             <div className="widget widget-author">

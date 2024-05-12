@@ -5,6 +5,7 @@ import '../../styles/posts.scss';
 import PostCard from "../../components/Posts/PostCard";
 import PostSkeleton from "../../components/Posts/PostSkeleton";
 import PostFilter from "../../components/Filters/PostFilter";
+import { useToastNotification } from "../../hooks/useToastNotification";
 
 const url = process.env.REACT_APP_API_URL + "/api/v1/posts";
 
@@ -13,6 +14,7 @@ function Posts(props) {
     const [posts, setPosts] = useState([]);
     const [cities, setCities] = useState([]);
     const [all_cities, setAllCities] = useState([]);
+    const {toastError} = useToastNotification();
 
     useEffect(() => {
         const fetchPosts = async () => {
@@ -27,12 +29,13 @@ function Posts(props) {
                 setIsFetching(true);
             } catch (err) {
                 alert("Щось пішло не так попробуйте щераз!");
+                toastError("Щось пішло не так попробуйте щераз!");
                 console.log(err);
             }
         };
-
+        console.log("start fetch");
         fetchPosts();
-    }, []);
+    }, [props.filter, toastError]);
 
     return (
         <div className="container mb-5">

@@ -12,7 +12,7 @@ function Comment(props) {
                 <p>{props.comment.text}</p> {/* Припустимо, що в коментарі є поле content з текстом коментаря */}
             </div>
             <div className="comment-footer">
-                <Link to={`/users/${comment.user.id}`}>View Profile</Link> {/* Посилання на профіль користувача */}
+                <Link to={`/users/${props.comment.user.id}`}>View Profile</Link> {/* Посилання на профіль користувача */}
             </div>
         </div>
     )

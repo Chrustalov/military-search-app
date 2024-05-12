@@ -31,6 +31,7 @@ class Api::V1::PostsController < ApplicationController
   
     comments_with_emails = @post.comments.map { |comment| { 
       id: comment.id,
+      user_id: comment.user.id,
       text: comment.text,
       email: comment.user.email # Отримати email користувача коментаря
     } }

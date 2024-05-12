@@ -13,7 +13,7 @@ function Create() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [photo, setPhoto] = useState(null);
-  const [cityId, setCityId] = useState(0);
+  const [cityId, setCityId] = useState(1);
   const [missingPeople, setMissingPeople] = useState([]);
   const { toastSuccess, toastError } = useToastNotification();
 

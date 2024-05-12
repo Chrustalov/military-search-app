@@ -48,7 +48,6 @@ class Api::V1::PostsController < ApplicationController
   end
 
   def create
-    binding.pry
     @post = Post.new(
       title: post_params['title'], status: 0, content: post_params['content'], user_id: current_user.id, city_id: post_params['city_id'], photo: post_params['photo']
     )
@@ -57,7 +56,7 @@ class Api::V1::PostsController < ApplicationController
         MissingPerson.create(
           first_name: person_params["first_name"],
           last_name: person_params["last_name"],
-          avatar: person_params["avatar"],
+          avatar: File.open('app/assets/avatar-und.png'),
           birthdate: person_params["birthdate"],
           region: person_params["region"],
           information: person_params["information"],
@@ -101,12 +100,10 @@ class Api::V1::PostsController < ApplicationController
                             last_name: row[:name].split(' ').last,
                             birthdate: row[:age],
                             region: row[:region],
-                            information: row[:information],
-                            avatar: File.open('app/assets/avatar-und.png')
+                            avatar: File.open('app/assets/avatar-und.png'),
+                            information: row[:information]
                           )
       end
-
-      binding.pry
 
       render json: { missing_people: missing_people }, status: :ok
     else

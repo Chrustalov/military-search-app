@@ -5,7 +5,7 @@ import AddMissinPeople from "../../components/Create/AddMissinPeople";
 import axios from "axios";
 import { useToastNotification } from "../../hooks/useToastNotification";
 import PostTable from "../../components/Posts/PostTable";
-const REQUEST_URL = process.env.REACT_APP_API_URL + "/api/v1/posts";
+const REQUEST_URL = process.env.REACT_APP_API_URL + "api/v1/posts";
 
 function Create() {
   const [title, setTitle] = useState("");
@@ -55,7 +55,7 @@ function Create() {
   };
 
   const onAddMissingPeople = useCallback((missingPerson) => {
-    setMissingPeople((prev) => [missingPerson, prev]);
+    setMissingPeople((prev) => [missingPerson, ...prev]);
   }, []);
 
   return (

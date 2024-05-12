@@ -11,6 +11,10 @@ i {
   }
 }
 
+.navbar-toggler {
+  border: 0 !important;
+}
+
 .header-underline {
   border-bottom: $low-green 2px solid;
   border-radius: 5px;

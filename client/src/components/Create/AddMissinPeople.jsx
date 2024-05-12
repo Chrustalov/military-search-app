@@ -82,6 +82,7 @@ function AddMissinPeople({ onAddMissingPeople }) {
       const fileName = file.name.toLowerCase();
       if (fileName.endsWith(".xlsx") || fileName.endsWith(".xls")) {
         const arr = await sendExelFile(file);
+        console.log(arr);
         if (arr) {
           arr.forEach((item) => {
             onAddMissingPeople(item);

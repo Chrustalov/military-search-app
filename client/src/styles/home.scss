@@ -24,15 +24,25 @@ html, body {
   justify-content: space-between;
   align-items: center;
   margin: 60px 0 150px;
+  @media (max-width: 1000px) {
+    flex-direction: column;
+    margin: 60px 0 100px;
+  }
   &__left {
     width: 37%;
     height: 70%;
+    @media (max-width: 1000px) {
+      width: 100%;
+    }
     img {
       border-radius: 8px;
     }
   }
   &__right {
     width: 60%;
+    @media (max-width: 800px) {
+      width: 100%;
+    }
   }
   &__title {
     font-size: 35px;
@@ -40,6 +50,9 @@ html, body {
     line-height: 1.2;
     color: $high-green;
     margin-bottom: 15px;
+    @media (max-width: 1000px) {
+      margin-top: 20px;
+    }
   }
   &__text {
     font-size: 17px;
@@ -48,6 +61,9 @@ html, body {
     margin-bottom: 25px;
   }
   .help {
+    @media (max-width: 1000px) {
+      margin: 30px auto;
+    }
     margin-top: 30px;
     padding: 20px 25px;
     border: 1px solid $dark-green;
@@ -74,6 +90,10 @@ html, body {
   align-items: start;
   justify-content: space-between;
   margin-bottom: 150px;
+  @media (max-width: 1000px) {
+    flex-direction: column;
+    margin-bottom: 100px;
+  }
   .feature {
     display: flex;
     justify-content: center;
@@ -81,6 +101,10 @@ html, body {
     text-align: center;
     flex-direction: column;
     width: 32%;
+    @media (max-width: 1000px) {
+      width: 100%;
+      margin-bottom: 25px;
+    }
     svg {
       width: 55px;
       height: 50px;
@@ -126,11 +150,19 @@ html, body {
   .advantage__tabs {
     display: flex;
     justify-content: space-between;
+    @media (max-width: 1000px) {
+      flex-direction: column;
+    }
   }
   .advantage-tabs__list {
     list-style: none;
     margin-right: 20px;
     width: 28%;
+    @media (max-width: 1000px) {
+      width: 100%;
+      margin-right: 0;
+      padding: 0;
+    }
     .nav-tabs__item {
       cursor: pointer;
       color: $low-green;

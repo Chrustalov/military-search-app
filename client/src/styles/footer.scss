@@ -9,6 +9,10 @@ img {
 footer {
   padding: 40px 0 0 0;
   background: $high-green;
+  @media (max-width: 1000px) {
+   margin: 0 auto;
+    text-align: center;
+  }
   .footer-link {
     a {
       display: block;
@@ -32,6 +36,10 @@ footer {
     list-style: none;
     width: 70%;
     margin: 0 auto;
+    @media (max-width: 1000px) {
+      width: 100%;
+      margin-top: 30px;
+    }
   }
   .copyright {
     text-align: center;

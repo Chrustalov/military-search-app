@@ -8,12 +8,12 @@ function Footer() {
           <div className="container">
               <section>
                   <div className="row">
-                      <div className="col-4">
+                      <div className="col-md-4 col-12">
                           <div className="info">
                               <img src="/images/white-logo.svg" alt="Unity rescue platform | Допоможи знайти"/>
                           </div>
                       </div>
-                      <div className="col-4">
+                      <div className="col-md-4 col-12">
                           <div className="contacts">
                               <h6 className="text-uppercase mb-4 font-weight-bold">Contact</h6>
                               <p>
@@ -30,7 +30,7 @@ function Footer() {
                               </p>
                           </div>
                       </div>
-                      <div className="col-4">
+                      <div className="col-md-4 col-12">
                           <ul className="row text-center d-flex justify-content-center list-links">
                               <li className="footer-link">
                                   <NavLink className="text-white" to={"/"}>

@@ -49,13 +49,23 @@ class Api::V1::PostsController < ApplicationController
 
   def create
     binding.pry
-    @post = current_user.posts.build(post_params)
+    @post = Post.new(
+      title: post_params['title'], status: 0, content: post_params['content'], user_id: current_user.id, city_id: post_params['city_id'], photo: post_params['photo']
+    )
     if @post.save
-      params[:missing_people].each do |person_params|
-        @post.missing_people.create(missing_person_params(person_params))
+      params[:post][:missing_people].each do |index, person_params|
+        MissingPerson.create(
+          first_name: person_params["first_name"],
+          last_name: person_params["last_name"],
+          avatar: person_params["avatar"],
+          birthdate: person_params["birthdate"],
+          region: person_params["region"],
+          information: person_params["information"],
+          post_id: @post.id
+        )
       end
 
-      users_to_mail.each do |user| 
+      users_to_mail.each do |user|
         VolunteerMailer.with(user: user,post: @post).job_email.deliver_later
       end
         render json: {post: @post,missing_person: @post.missing_people}
@@ -110,10 +120,6 @@ class Api::V1::PostsController < ApplicationController
     @post = Post.find(params[:id])
   end
 
-  def post_params
-    params.require(:post).permit(:title, :status, :content,  :city_id,:photo)
-  end
-
   def users_to_mail 
     # Користувачі, для яких broadcast.only_my_city === false та city == @city
     users_false_city = User.joins(:broadcast).where(broadcasts: { only_my_city: false }).joins(:profile)
@@ -127,10 +133,10 @@ class Api::V1::PostsController < ApplicationController
     
     users
   end
-  
-  
-  
-  
+
+  def post_params
+    params.require(:post).permit(:title, :status, :content, :city_id, :photo, missing_people: {})
+  end
 
   def missing_person_params(person_params)
     person_params.permit(:first_name, :last_name, :avatar, :birthdate, :region, :information)

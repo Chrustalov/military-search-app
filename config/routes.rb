@@ -10,7 +10,11 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :posts
+      resources :posts do
+        collection do
+          post '/upload_table_data', to: 'api/v1/posts#upload_table_data'
+        end
+      end
       namespace :volunteer do 
         resources :profiles
       end

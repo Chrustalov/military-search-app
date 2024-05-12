@@ -3,15 +3,16 @@ import Feature from "../../components/Home/Feature";
 import AdvantageTab from "../../components/Home/AdvantageTab";
 import { MdOutlineContactSupport } from "react-icons/md";
 import { SiEasyeda } from "react-icons/si";
-import { BsFillChatDotsFill } from "react-icons/bs";
+import { BsChatDots } from "react-icons/bs";
 import "../../styles/home.scss";
+import {NavLink} from "react-router-dom";
 
 function Home() {
     const features = [
         {
             title: 'Централізована Координація',
             content: "Ми забезпечуємо централізовану платформу, де добровольці, рятувальні служби та організації можуть об'єднати свої зусилля. Це сприяє кращій організації пошукових операцій та ефективнішій координації зусиль.",
-            icon: BsFillChatDotsFill
+            icon: BsChatDots
         },
         {
             title: 'Інформаційна Підтримка',
@@ -73,13 +74,15 @@ function Home() {
               організації знаходяться пліч-о-пліч, щоб забезпечити максимальну
               ефективність пошуку.
             </p>
-            <button className=" btn btn-outline-success p-2">
-              Переглянути публікації
-            </button>
-            <div className="intro__question">Бажаєте стати добровольцем?</div>
-            <button className=" btn btn-outline-success p-2">
-              Стати добровольцем
-            </button>
+              <NavLink className="btn btn-outline-success p-2" to={"/posts"}>
+                  Переглянути публікації
+              </NavLink>
+            <div className="help">
+                <div className="intro__question">Бажаєте стати добровольцем?</div>
+                <NavLink className="btn btn-outline-success p-2" to={"signup"}>
+                    Стати добровольцем
+                </NavLink>
+            </div>
           </div>
         </section>
         <section className="features">

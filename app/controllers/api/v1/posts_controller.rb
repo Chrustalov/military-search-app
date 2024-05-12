@@ -52,7 +52,6 @@ class Api::V1::PostsController < ApplicationController
     else
       render json: @post.errors, status: :unprocessable_entity
     end
-    
   end
 
   def update
@@ -64,6 +63,10 @@ class Api::V1::PostsController < ApplicationController
     else
       render json: @post.errors, status: :unprocessable_entity
     end
+  end
+
+  def upload_table_data
+    render json: { 'status' => 'ok' }
   end
 
   private

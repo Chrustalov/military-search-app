@@ -76,8 +76,32 @@ class Api::V1::PostsController < ApplicationController
   end
 
   def upload_table_data
-    binding.pry
-    render json: { 'status' => 'ok', missing_people => [] }
+    file = params[:file]
+    missing_people = []
+
+    if file.present?
+      xlsx = Roo::Spreadsheet.open(file.path)
+      xlsx.sheet(0).each_with_index(name: "Ім'я", age: 'Вік',
+                                    region: 'Регіон', information: 'Відомості') do |row, row_index|
+
+        next if row_index == 0
+
+        missing_people << MissingPerson.new(
+                            first_name: row[:name].split(' ').first,
+                            last_name: row[:name].split(' ').last,
+                            birthdate: row[:age],
+                            region: row[:region],
+                            information: row[:information],
+                            avatar: File.open('app/assets/avatar-und.png')
+                          )
+      end
+
+      binding.pry
+
+      render json: { missing_people: missing_people }, status: :ok
+    else
+      render json: { error: "No file uploaded" }, status: :unprocessable_entity
+    end
   end
 
   private

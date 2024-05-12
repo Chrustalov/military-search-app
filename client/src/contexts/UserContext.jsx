@@ -1,15 +1,23 @@
-import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
+import { createContext, useCallback, useContext, useEffect, useState } from "react";
 
 export const UserContext = createContext({
     user: null,
+    cities: [],
     login: () => {},
     logout : () => {},
+    setCities: () => {},
     isCompany: false,
 });
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [isCompany, setIsCompany] = useState(false);
+    const [cities, setCitie] = useState([]);
+
+    const setCities = useCallback((newCities) => {
+        setCitie(newCities);
+    } , []);
+
 
     const login = useCallback((newUser) => {
       setUser(newUser);
@@ -37,7 +45,7 @@ export const AuthProvider = ({ children }) => {
 
 
 
-    return <UserContext.Provider value={{user, login, isCompany, logout}}>
+    return <UserContext.Provider value={{user, login, isCompany, logout, setCities, cities}}>
         {children}
         </UserContext.Provider>;
 }

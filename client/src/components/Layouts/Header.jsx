@@ -18,7 +18,6 @@ const updateActiveItem = (target, horiSelector) => {
 };
 
 function Header() {
-  const navigate = useNavigate();
   const tabsNewAnimRef = useRef(null);
   const horiSelectorRef = useRef(null);
   const router = useLocation();
@@ -31,7 +30,7 @@ function Header() {
     if (localStorage.getItem("appState")) {
       localStorage.removeItem("appState");
     }
-    navigate("/");
+    window.location.href = "/";
   }
 
   useEffect(() => {

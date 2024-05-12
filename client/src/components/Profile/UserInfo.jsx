@@ -2,6 +2,7 @@ import React, { useCallback, useEffect } from "react";
 import UserInfoElement from "./UserInfoElement";
 import { useReducer } from "react";
 import DropFoto from "./DropFoto";
+import { useUser } from "../../contexts/UserContext";
 
 const initialState = {
   first_name: "",
@@ -21,6 +22,7 @@ function UserInfo({
   isCompany = false,
 }) {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const { cities } = useUser();
 
   useEffect(() => {
     console.log("profile", profile);
@@ -139,8 +141,10 @@ function UserInfo({
               value={state.city}
               isEditing={isEditing}
               onChange={onCityChange}
-              pattern="^[a-zA-Zа-яА-ЯіІїЇёЁ0-9\s-]{3,50}$"
+              as="select"
+              options={cities}
             />
+            
             <hr />
             <UserInfoElement
               name={isCompany ? "Про організацію" : "Про мене"}

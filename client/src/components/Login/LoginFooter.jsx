@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
 
 function LoginFooter({ changeForm, buttonTitle, linkText, linkClickText }) {
   return (
@@ -14,12 +13,13 @@ function LoginFooter({ changeForm, buttonTitle, linkText, linkClickText }) {
       </button>
       <div className="text-center text-dark d-sm-none d-block mt-3">
         {linkText}
-        <Link
-          className="text-dark text-decoration-none "
+        <b
+          className="text-dark text-decoration-none"
+          style={{ cursor: "pointer" }}
           onClick={changeForm}
         >
           {linkClickText}
-        </Link>
+        </b>
       </div>
     </div>
   );

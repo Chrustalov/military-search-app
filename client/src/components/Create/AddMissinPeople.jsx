@@ -46,10 +46,11 @@ function AddMissinPeople({ onAddMissingPeople }) {
   const handleSubmit = (e) => {
     e.stopPropagation();
     e.preventDefault();
+
     onAddMissingPeople({
-      firstName: first_name,
-      lastName: last_name,
-      photo: avatar,
+      first_name,
+      last_name,
+      avatar,
       birthdate,
       region,
       information,
@@ -143,19 +144,21 @@ function AddMissinPeople({ onAddMissingPeople }) {
               value={first_name}
               placeholder="Ім'я"
               id="first-name"
+              pattern="[A-Za-zА-Яа-яЁёЇїІіЄєҐґ-]{2,}"
               required
             />
             <LoginInput
               onChange={onChangeLastName}
               value={last_name}
               placeholder="Прізвище"
+              pattern="[A-Za-zА-Яа-яЁёЇїІіЄєҐґ-]{2,}"
               id="last-name"
               required
             />
             <LoginInput
               onChange={onChangeBirthdate}
               value={birthdate}
-              placeholder="Дата народження"
+              placeholder="Вік"
               id="birthdate"
               required
             />

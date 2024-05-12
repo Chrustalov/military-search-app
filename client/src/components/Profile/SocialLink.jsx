@@ -24,11 +24,14 @@ function SocialLink({
         if (copyLink === "") {
           onRemoveLink();
         } else {
-          onEditLink(e.target.value);
+          onEditLink({
+            ...link,
+            [link.key]: copyLink,
+          });
         }
       }
     },
-    [copyLink]
+    [copyLink, onEditLink, onRemoveLink]
   );
 
   const onDoubleClick = useCallback(() => {

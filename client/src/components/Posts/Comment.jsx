@@ -2,9 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import {  useUser } from "../../contexts/UserContext"
 function Comment(props) {
-    const {user } = useUser();
+    const {user} = useUser();
   return (
-    <div className={` comment-outer row  ${(user && props.comment.user_id === user.id) ? 'justify-content-end' : 'justify-content-start'} `}>
+    <div className={` comment-outer row  ${(user && props.comment.user_id === user?.id) ? 'justify-content-end' : 'justify-content-start'} `}>
         <div className="comment col-6 card">
         <div className="comment-header card-header d-flex justify-content-between align-items-center">
             <div>

@@ -9,7 +9,7 @@ import { useUser } from "../../contexts/UserContext";
 
 const Profile = () => {
   const { id } = useParams();
-  const { user, isCompany } = useUser();
+  const { user, isCompany, cities, setCities } = useUser();
   const [profile, setProfile] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const { toastError, toastSuccess } = useToastNotification();
@@ -94,6 +94,21 @@ const Profile = () => {
     fetchUser();
   }, [id, isCompany, navigation, toastError, user]);
 
+  useEffect(() => {
+    if (!cities.length) {
+      axios
+        .get(process.env.REACT_APP_API_URL + "api/v1/cities")
+        .then((resp) => resp.data)
+        .then((data) => {
+          console.log(data);
+          setCities(data.cities);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, [setCities, toastError]);
+
   const [links, setLinks] = useState([]);
 
   const addLink = useCallback((newLink) => {
@@ -101,12 +116,18 @@ const Profile = () => {
   }, []);
 
   const removeLink = useCallback((index) => {
-    setLinks((prev) => prev.filter((_, i) => i !== index));
+    setLinks((prev) => {
+      return prev.filter((_, i) => i !== index);
+    });
   }, []);
 
-  const editLink = useCallback((index, newLink) => {
-    setLinks((prev) => prev.map((link, i) => (i === index ? newLink : link)));
-  }, []);
+  const editLink = useCallback(
+    (index, newLink) => {
+      console.log(newLink, " link to save");
+      onEditProfile({ ...profile, [newLink.key]: newLink[newLink.key] });
+    },
+    [onEditProfile, profile]
+  );
 
   if (!user) {
     return (

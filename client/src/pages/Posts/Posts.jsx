@@ -1,11 +1,12 @@
-import React, { useContext } from "react";
+import React from "react";
 import { useEffect, useState } from "react";
-import axios, { all } from "axios";
+import axios from "axios";
 import '../../styles/posts.scss';
 import PostCard from "../../components/Posts/PostCard";
 import PostSkeleton from "../../components/Posts/PostSkeleton";
 import PostFilter from "../../components/Filters/PostFilter";
 import { useToastNotification } from "../../hooks/useToastNotification";
+import { useUser } from "../../contexts/UserContext";
 
 const url = process.env.REACT_APP_API_URL + "/api/v1/posts";
 
@@ -13,7 +14,7 @@ function Posts(props) {
     const [isFetching, setIsFetching] = useState(false);
     const [posts, setPosts] = useState([]);
     const [cities, setCities] = useState([]);
-    const [all_cities, setAllCities] = useState([]);
+    const {cities : all_cities, setCities : setAllCities} = useUser();
     const {toastError} = useToastNotification();
 
     useEffect(() => {

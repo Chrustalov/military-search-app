@@ -124,7 +124,7 @@ function Login() {
               name,
               password,
               email,
-              role: volunteer ? 0 : 1,
+              role: volunteer ? "volunteer" : "organization",
             },
           },
           {

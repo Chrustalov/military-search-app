@@ -29,7 +29,7 @@ const Profile = () => {
       console.log("Save new profile", newProfile);
       axios
         .patch(
-          "http://localhost:3001" +
+          process.env.REACT_APP_API_URL +
             "/api/v1/" +
             (!isCompany ? "volunteer" : "organization") +
             "/profiles/" +
@@ -58,7 +58,7 @@ const Profile = () => {
     const fetchUser = async () => {
       axios
         .get(
-          "http://localhost:3001" +
+          process.env.REACT_APP_API_URL +
             "/api/v1/" +
             (!isCompany ? "volunteer" : "organization") +
             "/profiles" +

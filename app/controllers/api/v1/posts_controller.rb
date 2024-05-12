@@ -74,7 +74,7 @@ class Api::V1::PostsController < ApplicationController
   end
 
   def upload_table_data
-    render json: { 'status' => 'ok' }
+    render json: { 'status' => 'ok', missing_people => [] }
   end
 
   private

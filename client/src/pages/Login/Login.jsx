@@ -118,7 +118,7 @@ function Login() {
     try {
       const response = await axios
         .post(
-          "http://localhost:3001" + endPoint,
+          process.env.REACT_APP_API_URL + endPoint,
           {
             user: {
               name,

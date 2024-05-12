@@ -13,18 +13,21 @@ const initialState = {
   organization_name: "",
 };
 
-
-function UserInfo({ profile, onEditProfile, isEditing, onCancel,  isCompany = false }) {
+function UserInfo({
+  profile,
+  onEditProfile,
+  isEditing,
+  onCancel,
+  isCompany = false,
+}) {
   const [state, dispatch] = useReducer(reducer, initialState);
-  
+
   useEffect(() => {
     console.log("profile", profile);
     if (profile) {
       dispatch({ type: "SET_STATE", payload: profile });
     }
   }, [profile]);
-
-
 
   const setAvatar = useCallback((file) => {
     dispatch({ type: "SET_AVATAR", payload: file });
@@ -62,7 +65,6 @@ function UserInfo({ profile, onEditProfile, isEditing, onCancel,  isCompany = fa
     dispatch({ type: "SET_STATE", payload: profile });
     onCancel();
   }, [profile, onCancel]);
-
 
   return (
     <>
@@ -129,8 +131,6 @@ function UserInfo({ profile, onEditProfile, isEditing, onCancel,  isCompany = fa
               value={state.second_phone}
               isEditing={isEditing}
               onChange={onSecondPhoneChange}
-              title="Додатковий номер телефону повинен мати формат +380XXXXXXXXX"
-              pattern="^\+?3?8?(0\d{9})$"
               required={false}
             />
             <hr />

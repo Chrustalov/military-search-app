@@ -5,9 +5,9 @@ import { useToastNotification } from "../../hooks/useToastNotification";
 import axios from "axios";
 
 function AddMissinPeople({ onAddMissingPeople }) {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [photo, setPhoto] = useState(null);
+  const [first_name, setFirstName] = useState("");
+  const [last_name, setLastName] = useState("");
+  const [avatar, setPhoto] = useState(null);
   const [birthdate, setBirthdate] = useState("");
   const [region, setRegion] = useState("");
   const [information, setInformation] = useState("");
@@ -44,12 +44,12 @@ function AddMissinPeople({ onAddMissingPeople }) {
   }, []);
 
   const handleSubmit = (e) => {
-    e.preventDefault();
     e.stopPropagation();
+    e.preventDefault();
     onAddMissingPeople({
-      firstName,
-      lastName,
-      photo,
+      firstName: first_name,
+      lastName: last_name,
+      photo: avatar,
       birthdate,
       region,
       information,
@@ -75,6 +75,7 @@ function AddMissinPeople({ onAddMissingPeople }) {
 
   const handleFileUpload = useCallback(
     async (e) => {
+      console.log(e.target.files[0]);
       const file = e.target.files[0];
       if (!file) return;
       const fileName = file.name.toLowerCase();
@@ -94,7 +95,7 @@ function AddMissinPeople({ onAddMissingPeople }) {
         );
       }
 
-      e.target.files[0] = null;
+      e.target.value = null;
     },
     [onAddMissingPeople, toastError, toastSuccess]
   );
@@ -116,7 +117,12 @@ function AddMissinPeople({ onAddMissingPeople }) {
             onClick={handleExelButtonClick}
           >
             Додати через Exel
-            <input ref={inputRef} type="file" className="d-none" />
+            <input
+              ref={inputRef}
+              type="file"
+              className="d-none"
+              onChange={handleFileUpload}
+            />
           </button>
         </div>
       </div>
@@ -128,20 +134,20 @@ function AddMissinPeople({ onAddMissingPeople }) {
         {isOpened && (
           <form
             className=" login-input-text d-flex flex-column bg-white  justify-content-center align-content-center py-3 rounded text-center gap-2 z-3 "
-            onSubmit={handleSubmit}
             ref={contentRef}
+            onSubmit={() => false}
           >
-            <DropFoto file={photo} setFile={setPhoto} />
+            <DropFoto file={avatar} setFile={setPhoto} />
             <LoginInput
               onChange={onChangeFirstName}
-              value={firstName}
+              value={first_name}
               placeholder="Ім'я"
               id="first-name"
               required
             />
             <LoginInput
               onChange={onChangeLastName}
-              value={lastName}
+              value={last_name}
               placeholder="Прізвище"
               id="last-name"
               required
@@ -151,7 +157,6 @@ function AddMissinPeople({ onAddMissingPeople }) {
               value={birthdate}
               placeholder="Дата народження"
               id="birthdate"
-              type="date"
               required
             />
             <LoginInput
@@ -174,6 +179,8 @@ function AddMissinPeople({ onAddMissingPeople }) {
                 style={{
                   transition: "transform 0.5s ease-in",
                 }}
+                type="button"
+                onClick={handleSubmit}
               >
                 Додати
               </button>
@@ -186,10 +193,13 @@ function AddMissinPeople({ onAddMissingPeople }) {
 }
 
 async function sendExelFile(file) {
+  console.log(file);
   return axios
     .post(
-      "http://localhost:3001" + "/api/v1/missing-people/exel",
-      { file },
+      process.env.REACT_APP_API_URL + "/api/v1/posts/upload_table_data",
+      {
+        file,
+      },
       {
         headers: {
           "Content-Type": "multipart/form-data",
@@ -197,7 +207,7 @@ async function sendExelFile(file) {
         },
       }
     )
-    .then((resp) => resp.data)
+    .then((resp) => resp.data.missing_people)
     .catch((error) => {
       console.log(error);
       return null;

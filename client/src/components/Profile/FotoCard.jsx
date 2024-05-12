@@ -14,7 +14,7 @@ function FotoCard({
         <div className="card-body text-center my-3">
           <img
             src={
-              "http://localhost:3001" + avatarUrl ||
+              process.env.REACT_APP_API_URL + avatarUrl ||
               "https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
             }
             alt="Фото профілю"

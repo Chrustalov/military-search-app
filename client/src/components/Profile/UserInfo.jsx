@@ -82,6 +82,7 @@ function UserInfo({ profile, onEditProfile, isEditing, onCancel,  isCompany = fa
             onSubmit={(e) => {
               e.stopPropagation();
               e.preventDefault();
+              onEditProfile(state);
               return false;
             }}
           >
@@ -91,6 +92,7 @@ function UserInfo({ profile, onEditProfile, isEditing, onCancel,  isCompany = fa
                 value={state.organization_name}
                 isEditing={isEditing}
                 onChange={onOrganizationChange}
+                pattern="^[a-zA-Zа-яА-ЯіІїЇёЁ0-9\s-]{3,50}$"
               />
             ) : (
               <>
@@ -99,6 +101,7 @@ function UserInfo({ profile, onEditProfile, isEditing, onCancel,  isCompany = fa
                   value={state.first_name}
                   isEditing={isEditing}
                   onChange={onFirstNameChange}
+                  pattern="^[a-zA-Zа-яА-ЯіІїЇёЁ\s-]{3,50}$"
                 />
                 <hr />
                 <UserInfoElement
@@ -106,6 +109,7 @@ function UserInfo({ profile, onEditProfile, isEditing, onCancel,  isCompany = fa
                   value={state.last_name}
                   isEditing={isEditing}
                   onChange={onLastNameChange}
+                  pattern="^[a-zA-Zа-яА-ЯіІїЇёЁ\s-]{3,50}$"
                 />
               </>
             )}
@@ -116,6 +120,8 @@ function UserInfo({ profile, onEditProfile, isEditing, onCancel,  isCompany = fa
               value={state.first_phone}
               isEditing={isEditing}
               onChange={onFirstPhoneChange}
+              title="Номер телефону повинен мати формат +380XXXXXXXXX"
+              pattern="^\+?3?8?(0\d{9})$"
             />
             <hr />
             <UserInfoElement
@@ -123,6 +129,9 @@ function UserInfo({ profile, onEditProfile, isEditing, onCancel,  isCompany = fa
               value={state.second_phone}
               isEditing={isEditing}
               onChange={onSecondPhoneChange}
+              title="Додатковий номер телефону повинен мати формат +380XXXXXXXXX"
+              pattern="^\+?3?8?(0\d{9})$"
+              required={false}
             />
             <hr />
             <UserInfoElement
@@ -130,6 +139,7 @@ function UserInfo({ profile, onEditProfile, isEditing, onCancel,  isCompany = fa
               value={state.city}
               isEditing={isEditing}
               onChange={onCityChange}
+              pattern="^[a-zA-Zа-яА-ЯіІїЇёЁ0-9\s-]{3,50}$"
             />
             <hr />
             <UserInfoElement
@@ -151,7 +161,6 @@ function UserInfo({ profile, onEditProfile, isEditing, onCancel,  isCompany = fa
 
               <button
                 className="btn btn-outline-success flex-grow-1 "
-                onClick={() => onEditProfile(state)}
                 type="submit"
                 form="edit-profile"
               >
@@ -173,7 +182,7 @@ function reducer(state = initialState, action) {
       return { ...state, first_name: action.payload };
     case "SET_LAST_NAME":
       return { ...state, second_name: action.payload };
-    case "SET_PHONE_NUMBER":
+    case "SET_FIRST_PHONE":
       return { ...state, first_phone: action.payload };
     case "SET_SECOND_PHONE":
       return { ...state, second_phone: action.payload };
@@ -182,7 +191,6 @@ function reducer(state = initialState, action) {
     case "SET_ABOUT_ME":
       return { ...state, about_me: action.payload };
     case "SET_AVATAR":
-      console.log("reducer SET_AVATAR ", action.payload, state.avatar);
       return { ...state, avatar: action.payload };
     case "SET_ORGANIZATION_NAME":
       return { ...state, organization_name: action.payload };

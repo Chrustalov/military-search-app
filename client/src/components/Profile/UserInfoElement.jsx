@@ -1,6 +1,6 @@
 import React from 'react'
 
-function UserInfoElement({name, value, isEditing, onChange, required = true}) {
+function UserInfoElement({name, value, isEditing, onChange, required = true, ...props}) {
   return (
     <div className="row">
       <div className="col-sm-3">
@@ -15,6 +15,7 @@ function UserInfoElement({name, value, isEditing, onChange, required = true}) {
           value={value}
           onChange={onChange}
           required={required}
+          {...props}
         />
       </div>
     </div>

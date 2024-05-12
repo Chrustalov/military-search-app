@@ -18,8 +18,8 @@ function FotoCard({
               "https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
             }
             alt="Фото профілю"
-            className="rounded-circle img-fluid"
-            style={{ width: "150px" }}
+            className="rounded-circle img-fluid my-2"
+            style={{ width: "150px", height: "150px", objectFit: "cover" }}
           />
           {name && <h5 className="my-3">{name}</h5>}
           <p className="text-muted mb-1">{aboutMe}</p>

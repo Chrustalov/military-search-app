@@ -46,7 +46,11 @@ function AddMissinPeople({ onAddMissingPeople }) {
   const handleSubmit = (e) => {
     e.stopPropagation();
     e.preventDefault();
-
+    if (!first_name || !last_name || !birthdate || !region || !information) {
+      toastError("Заповніть всі поля");
+      return false;
+    }
+    
     onAddMissingPeople({
       first_name,
       last_name,
@@ -82,8 +86,10 @@ function AddMissinPeople({ onAddMissingPeople }) {
       const fileName = file.name.toLowerCase();
       if (fileName.endsWith(".xlsx") || fileName.endsWith(".xls")) {
         const arr = await sendExelFile(file);
+        console.log(arr);
         if (arr) {
           arr.forEach((item) => {
+            console.log(item);
             onAddMissingPeople(item);
           });
           toastSuccess("Дані успішно додані");
@@ -210,7 +216,10 @@ async function sendExelFile(file) {
         },
       }
     )
-    .then((resp) => resp.data.missing_people)
+    .then((resp) => {
+      console.log(resp.data);
+      return resp.data.missing_people;
+    })
     .catch((error) => {
       console.log(error);
       return null;

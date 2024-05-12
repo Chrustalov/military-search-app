@@ -1,13 +1,15 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import LoginInput from "../../components/Login/LoginInput";
 import DropFoto from "../../components/Profile/DropFoto";
 import AddMissinPeople from "../../components/Create/AddMissinPeople";
 import axios from "axios";
 import { useToastNotification } from "../../hooks/useToastNotification";
 import PostTable from "../../components/Posts/PostTable";
-const REQUEST_URL = process.env.REACT_APP_API_URL + "/api/v1/posts";
+import { useUser } from "../../contexts/UserContext";
+const REQUEST_URL = process.env.REACT_APP_API_URL + "api/v1/posts";
 
 function Create() {
+  const { cities, setCities } = useUser();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [photo, setPhoto] = useState(null);
@@ -23,11 +25,18 @@ function Create() {
     setContent(e.target.value);
   }, []);
 
+  const onCityChange = useCallback((e) => {
+    setCityId(e.target.value);
+  }, []);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    console.log({ title, content, photo, cityId, missingPeople });
-    //Todo send data to server
+    console.log(
+      { title, content, photo, cityId, missingPeople },
+      "data to server"
+    );
+
     axios
       .post(
         REQUEST_URL,
@@ -35,8 +44,9 @@ function Create() {
           post: {
             title,
             content,
+            photo: photo,
             city_id: cityId,
-            missing_people: missingPeople,
+            //missing_people: [...missingPeople],
             status: "in_process",
           },
         },
@@ -51,12 +61,30 @@ function Create() {
         toastSuccess("Повідомлення успішно створено");
         console.log(resp.data);
       })
-      .catch((err) => toastError(err.response?.data?.message));
+      .catch((err) => {
+        console.log(err);
+
+        toastError(err.response?.data?.message);
+      });
   };
 
   const onAddMissingPeople = useCallback((missingPerson) => {
-    setMissingPeople((prev) => [missingPerson, prev]);
+    setMissingPeople((prev) => [missingPerson, ...prev]);
   }, []);
+
+  useEffect(() => {
+    if (!cities.length) {
+      axios
+        .get(process.env.REACT_APP_API_URL + "api/v1/cities")
+        .then((resp) => resp.data)
+        .then((data) => {
+          setCities(data.cities);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, [setCities, toastError]);
 
   return (
     <section>
@@ -79,6 +107,23 @@ function Create() {
           onChange={onContentChange}
           required
         />
+
+        <select
+          className="rounded p-3 login-input-text m-auto  text-truncate border-black"
+          style={{
+            outline: "0",
+          }}
+          type="text"
+          value={cityId}
+          onChange={onCityChange}
+          required
+        >
+          {cities?.map((city) => (
+            <option key={city.id} value={city.id}>
+              {city.name}
+            </option>
+          ))}
+        </select>
 
         <AddMissinPeople onAddMissingPeople={onAddMissingPeople} />
 

@@ -10,7 +10,7 @@ function SignupForm({ isNewUser, changeForm, login }) {
   const [password, setPassword] = useState("");
   const [repeadPassword, setRepeadPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [isVolunteer, setVolunteer] = useState(false);
+  const [isVolunteer, setVolunteer] = useState(true);
   const { toastError } = useToastNotification();
 
   const togglePassword = useCallback(() => {

@@ -36,7 +36,7 @@ function Posts(props) {
         };
         console.log("start fetch");
         fetchPosts();
-    }, [props.filter, toastError]);
+    }, [props.filter, setAllCities, toastError]);
 
     return (
         <div className="container mb-5">

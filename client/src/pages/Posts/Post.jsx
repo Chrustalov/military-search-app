@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import "../../styles/table_posts.scss";
@@ -22,6 +22,10 @@ function Post() {
   const [missing_people, setMissingPeople] = useState([]);
   const [isFetching, setIsFetching] = useState(false);
   const navigate = useNavigate();
+
+  const addComment = useCallback((comment) => {
+    setComments((prev) => [...prev, comment]);
+  }, []);
 
   useEffect(() => {
     const fetchRequests = async () => {
@@ -58,7 +62,7 @@ function Post() {
                 <div className="article-img">
                   <img
                     src={process.env.REACT_APP_API_URL + post.photo.url}
-                    title=""
+                    title="Фото користувача"
                     alt=""
                   />
                 </div>
@@ -113,7 +117,7 @@ function Post() {
                       <FaTelegram />
                     </a>
                   </div>
-                  <p className="text-muted mt-4">Місто: {profile.city}</p>
+                  <p className="text-muted mt-4">Місто: {city.name}</p>
                 </div>
               </div>
               <div className="widget widget-latest-post">
@@ -131,7 +135,11 @@ function Post() {
           <div className="container-fluid">
             <div className="row justify-content-center">
               <div className="col-12">
-                <Comments comments={comments} />
+                <Comments
+                  comments={comments}
+                  addComment={addComment}
+                  postId={post.id}
+                />
               </div>
             </div>
           </div>

@@ -67,7 +67,7 @@ const Profile = () => {
       axios
         .get(
           process.env.REACT_APP_API_URL +
-            "/api/v1/" +
+            "api/v1/" +
             (!isCompany ? "volunteer" : "organization") +
             "/profiles" +
             (id && !Number.isNaN(id) ? "/" + id : ""),

@@ -85,7 +85,7 @@ function Home() {
             </div>
           </div>
         </section>
-        <section className="features">
+        <section className="features flex-md-row flex-column text-center">
           {features.map((item) => (
             <Feature key={item.title} {...item} />
           ))}

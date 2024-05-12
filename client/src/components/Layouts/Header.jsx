@@ -167,7 +167,7 @@ function Header() {
                     Профіль
                   </NavLink>
                 </li>
-                <li className="z-3 mx-3  align-content-center ">
+                <li className="z-3 mx-3  align-content-center m-md-3 my-4 ">
                   <button className="btn btn-outline-success " onClick={logout}>
                     Вийти
                   </button>

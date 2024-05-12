@@ -73,21 +73,19 @@ function Create() {
   }, []);
 
   useEffect(() => {
-    if (!cities.length) {
-      axios
-        .get(process.env.REACT_APP_API_URL + "api/v1/cities")
-        .then((resp) => resp.data)
-        .then((data) => {
-          setCities(data.cities);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
-  }, [setCities, toastError]);
+    axios
+      .get(process.env.REACT_APP_API_URL + "api/v1/cities")
+      .then((resp) => resp.data)
+      .then((data) => {
+        setCities(data.cities);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   return (
-    <section>
+    <section className="overflow-x-hidden">
       <form
         className="d-flex justify-content-center align-content-center flex-column py-3 h-100 text-center gap-2"
         onSubmit={handleSubmit}
@@ -127,8 +125,9 @@ function Create() {
 
         <AddMissinPeople onAddMissingPeople={onAddMissingPeople} />
 
-        <PostTable missing_people={missingPeople} />
-
+        <div className="container-fluid ">
+          <PostTable missing_people={missingPeople} />
+        </div>
         <div className=" text-center mt-5">
           <button
             className="login-input-text btn btn-outline-success p-3 "

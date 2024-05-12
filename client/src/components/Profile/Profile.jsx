@@ -104,18 +104,16 @@ const Profile = () => {
   }, [id, isCompany, navigation, toastError, user]);
 
   useEffect(() => {
-    if (!cities.length) {
-      axios
-        .get(process.env.REACT_APP_API_URL + "api/v1/cities")
-        .then((resp) => resp.data)
-        .then((data) => {
-          setCities(data.cities);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
-  }, [setCities, toastError]);
+    axios
+      .get(process.env.REACT_APP_API_URL + "api/v1/cities")
+      .then((resp) => resp.data)
+      .then((data) => {
+        setCities(data.cities);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   const [links, setLinks] = useState([]);
 
@@ -137,9 +135,12 @@ const Profile = () => {
     [onEditProfile, profile]
   );
 
-  const onBroadcastEdit = useCallback((newBroadcast) => {
-    onEditProfile(profile, newBroadcast);
-  }, [onEditProfile, profile]);
+  const onBroadcastEdit = useCallback(
+    (newBroadcast) => {
+      onEditProfile(profile, newBroadcast);
+    },
+    [onEditProfile, profile]
+  );
 
   if (!user) {
     return (

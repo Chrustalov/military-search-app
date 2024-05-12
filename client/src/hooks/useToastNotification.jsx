@@ -1,17 +1,16 @@
 import React, { useCallback } from "react";
-import {toast} from "react-toastify"
+import { toast } from "react-toastify";
 
 export const useToastNotification = () => {
-  const toastSuccess = useCallback((text = "Success") => {  
+  const toastSuccess = useCallback((text = "Успіх") => {
     toast.success(text, {
       autoClose: 2000,
       draggable: true,
       position: "bottom-right",
       closeOnClick: true,
-        
     });
   }, []);
-  const toastError = useCallback((text = "Something went wrong") => {
+  const toastError = useCallback((text = "Щось пішло не так") => {
     toast.error(text, {
       autoClose: 2000,
       draggable: true,
@@ -20,5 +19,5 @@ export const useToastNotification = () => {
     });
   }, []);
 
-  return {toastSuccess, toastError};
+  return { toastSuccess, toastError };
 };

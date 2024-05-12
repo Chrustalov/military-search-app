@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { FaGoogleDrive } from "react-icons/fa";
-// import { UploadCloud } from "./icons";
 
 function DropFoto({ className = "", file, setFile }) {
   const inputRef = useRef(null);
@@ -32,7 +31,7 @@ function DropFoto({ className = "", file, setFile }) {
   return (
     <div
       className={
-        "container-fluid align-content-center justify-content-center  p-4 " +
+        "container-fluid align-content-center justify-content-center p-4 " +
         className
       }
       accordion
@@ -56,7 +55,12 @@ function DropFoto({ className = "", file, setFile }) {
             style={{ height: "300px" }}
           >
             <div className="col-auto">
-              <img src={url} className="img-fluid" alt="Завантажене фото" style={{maxHeight: "300px"}} />
+              <img
+                src={url}
+                className="img-fluid"
+                alt="Завантажене фото"
+                style={{ maxHeight: "300px" }}
+              />
             </div>
           </div>
         </div>

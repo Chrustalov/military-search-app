@@ -148,7 +148,7 @@ function Login() {
       contextValue.login(data_user);
       localStorage.setItem("token", response.headers.get("Authorization"));
       toastSuccess("Успішний вхід");
-      navigation("/");
+      navigation("/profile");
     } catch (err) {
       toastError(err.message);
       console.log("error", err);

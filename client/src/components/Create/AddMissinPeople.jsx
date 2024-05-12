@@ -1,8 +1,10 @@
-import React, { useCallback, useRef, useState } from 'react'
-import LoginInput from '../Login/LoginInput';
-import DropFoto from '../Profile/DropFoto';
+import React, { useCallback, useRef, useState } from "react";
+import LoginInput from "../Login/LoginInput";
+import DropFoto from "../Profile/DropFoto";
+import { useToastNotification } from "../../hooks/useToastNotification";
+import axios from "axios";
 
-function AddMissinPeople({onAddMissingPeople}) {
+function AddMissinPeople({ onAddMissingPeople }) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [photo, setPhoto] = useState(null);
@@ -10,12 +12,14 @@ function AddMissinPeople({onAddMissingPeople}) {
   const [region, setRegion] = useState("");
   const [information, setInformation] = useState("");
   const contentRef = useRef(null);
+  const inputRef = useRef(null);
+  const { toastError, toastSuccess } = useToastNotification();
 
-   const handleOutsideClick = (e) => {
-     if (contentRef.current && !contentRef.current.contains(e.target)) {
-         setIsOpened(false);
-     }
-   };
+  const handleOutsideClick = (e) => {
+    if (contentRef.current && !contentRef.current.contains(e.target)) {
+      setIsOpened(false);
+    }
+  };
 
   const [isOpened, setIsOpened] = useState(false);
 
@@ -42,7 +46,14 @@ function AddMissinPeople({onAddMissingPeople}) {
   const handleSubmit = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    onAddMissingPeople({firstName, lastName, photo, birthdate, region, information});
+    onAddMissingPeople({
+      firstName,
+      lastName,
+      photo,
+      birthdate,
+      region,
+      information,
+    });
     setFirstName("");
     setLastName("");
     setPhoto(null);
@@ -57,16 +68,57 @@ function AddMissinPeople({onAddMissingPeople}) {
     setIsOpened(true);
   }, []);
 
+  const handleExelButtonClick = useCallback(() => {
+    if (!inputRef.current) return;
+    inputRef.current.click();
+  }, [inputRef]);
+
+  const handleFileUpload = useCallback(
+    async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const fileName = file.name.toLowerCase();
+      if (fileName.endsWith(".xlsx") || fileName.endsWith(".xls")) {
+        const arr = sendExelFile(file);
+        if (arr) {
+          arr.forEach((item) => {
+            onAddMissingPeople(item);
+          });
+          toastSuccess("Дані успішно додані");
+        } else {
+          toastError("Помилка при завантаженні файлу");
+        }
+      } else {
+        toastError(
+          "Будь ласка, виберіть файл Excel з розширенням .xlsx або .xls."
+        );
+      }
+
+      e.target.files[0] = null;
+    },
+    [onAddMissingPeople, toastError, toastSuccess]
+  );
+
   return (
     <>
-      <div>
-        <button
-          className="btn btn-outline-success p-3"
-          type="button"
-          onClick={handleOpen}
-        >
-          Додати втрачену людину
-        </button>
+      <div className="text-center d-flex justify-content-center ">
+        <div className="d-flex gap-2 justify-content-between login-input-text p-3 rounded    flex-column flex-sm-row ">
+          <button
+            className="btn btn-outline-success p-3 flex-grow-1 text-truncate "
+            type="button"
+            onClick={handleOpen}
+          >
+            Додати втрачену людину
+          </button>
+          <button
+            className="btn btn-outline-success p-3 flex-grow-1 "
+            type="button"
+            onClick={handleExelButtonClick}
+          >
+            Додати через Exel
+            <input ref={inputRef} type="file" className="d-none" />
+          </button>
+        </div>
       </div>
       <div
         className="position-absolute  w-100 d-flex justify-content-center"
@@ -116,9 +168,9 @@ function AddMissinPeople({onAddMissingPeople}) {
               id="information"
               required
             />
-            <div className=" text-center">
+            <div className=" text-center mt-5">
               <button
-                className="login-input-text btn btn-outline-success p-3"
+                className="login-input-text btn btn-outline-success p-3 "
                 style={{
                   transition: "transform 0.5s ease-in",
                 }}
@@ -131,7 +183,25 @@ function AddMissinPeople({onAddMissingPeople}) {
       </div>
     </>
   );
-
 }
 
-export default AddMissinPeople
+async function sendExelFile(file) {
+  return axios
+    .post(
+      "http://localhost:3001" + "/api/v1/missing-people/exel",
+      { file },
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          authorization: localStorage.getItem("token"),
+        },
+      }
+    )
+    .then((resp) => resp.data)
+    .catch((error) => {
+      console.log(error);
+      return null;
+    });
+}
+
+export default AddMissinPeople;

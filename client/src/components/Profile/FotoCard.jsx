@@ -11,14 +11,14 @@ function FotoCard({
   return (
     <div className="col-lg-4 ">
       <div className="mb-4 border border-1 border-black rounded-5 pb-2 ">
-        <div className="card-body text-center">
+        <div className="card-body text-center my-3">
           <img
             src={
               "http://localhost:3001" + avatarUrl ||
               "https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
             }
             alt="Фото профілю"
-            className="rounded-circle img-fluid"
+            className="rounded img-fluid"
             style={{ width: "150px" }}
           />
           {name && <h5 className="my-3">{name}</h5>}

@@ -81,9 +81,9 @@ function Create() {
 
         <AddMissinPeople onAddMissingPeople={onAddMissingPeople} />
 
-        <div className=" text-center">
+        <div className=" text-center mt-5">
           <button
-            className="login-input-text btn btn-outline-success p-3"
+            className="login-input-text btn btn-outline-success p-3 "
             style={{
               transition: "transform 0.5s ease-in",
             }}

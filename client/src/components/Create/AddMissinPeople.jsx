@@ -81,7 +81,7 @@ function AddMissinPeople({ onAddMissingPeople }) {
       if (!file) return;
       const fileName = file.name.toLowerCase();
       if (fileName.endsWith(".xlsx") || fileName.endsWith(".xls")) {
-        const arr = sendExelFile(file);
+        const arr = await sendExelFile(file);
         if (arr) {
           arr.forEach((item) => {
             onAddMissingPeople(item);
@@ -199,7 +199,7 @@ async function sendExelFile(file) {
   console.log(file);
   return axios
     .post(
-      process.env.REACT_APP_API_URL + "/api/v1/posts/upload_table_data",
+      process.env.REACT_APP_API_URL + "api/v1/posts/upload_table_data",
       {
         file,
       },

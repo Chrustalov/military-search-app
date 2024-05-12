@@ -12,7 +12,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :posts do
         collection do
-          post '/upload_table_data', to: 'api/v1/posts#upload_table_data'
+          post '/upload_table_data', to: 'posts#upload_table_data'
         end
       end
       resources :cities

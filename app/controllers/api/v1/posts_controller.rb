@@ -48,6 +48,7 @@ class Api::V1::PostsController < ApplicationController
   end
 
   def create
+    binding.pry
     @post = current_user.posts.build(post_params)
     if @post.save
       params[:missing_people].each do |person_params|
@@ -75,6 +76,7 @@ class Api::V1::PostsController < ApplicationController
   end
 
   def upload_table_data
+    binding.pry
     render json: { 'status' => 'ok', missing_people => [] }
   end
 

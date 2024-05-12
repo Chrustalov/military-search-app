@@ -6,6 +6,7 @@ import LatestPost from "../../components/Posts/LatestPost";
 import PostTableItem from "../../components/Posts/PostTableItem";
 import PostDetailSkeleton from "../../components/Posts/PostDetailSkeleton";
 import { FaInstagram, FaFacebook, FaTelegram } from "react-icons/fa";
+import  Comments from "../../components/Posts/Comments"
 
 const url = process.env.REACT_APP_API_URL + "/api/v1/posts/";
 
@@ -13,6 +14,7 @@ function Post() {
     const { id } = useParams();
     const [post, setPost] = useState({});
     const [profile, setProfile] = useState({});
+    const [comments, setComments] = useState([])
     const [city, setCity] = useState({});
     const [author, setAuthor] = useState({});
     const [latest_posts, setLatestPosts] = useState([]);
@@ -31,6 +33,7 @@ function Post() {
                 setMissingPeople(data.missing_people);
                 setAuthor(data.creator);
                 setCity(data.city);
+                setComments(data.comments);
                 setProfile(data.creator_profile);
                 console.log(author, latest_posts, missing_people, post, profile);
 
@@ -89,7 +92,9 @@ function Post() {
                                     </tbody>
                                 </table>
                             </div>
+                         
                         </div>
+
                         <div className="col-lg-4 m-15px-tb">
                             <div className="widget widget-author">
                                 <div className="widget-title">
@@ -142,7 +147,15 @@ function Post() {
                             </div>
                         </div>
                     </div>
+                    <div className="container-fluid">
+                        <div className="row justify-content-center">
+                            <div className="col-12">
+                            <Comments comments={comments}/>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
             ) : (
                 <h1>wow</h1>
                 // <PostDetailSkeleton key={id}/>

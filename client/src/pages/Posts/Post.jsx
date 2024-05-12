@@ -1,7 +1,9 @@
 import React, {useContext, useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import axios from "axios";
+import "../../styles/table_posts.scss";
 import LatestPost from "../../components/Posts/LatestPost";
+import PostTableItem from "../../components/Posts/PostTableItem";
 import PostDetailSkeleton from "../../components/Posts/PostDetailSkeleton";
 import { FaInstagram, FaFacebook, FaTelegram } from "react-icons/fa";
 
@@ -66,15 +68,26 @@ function Post() {
                             </article>
                             <div className="widget widget-missing-people">
                                 <div className="widget missing-people">
-                                    <h3>Зниклі</h3>
+                                    <h3>Зниклі особи</h3>
                                 </div>
-                                {/*<div className="widget-body">*/}
-                                {/*    {*/}
-                                {/*        latest_posts.map((item) => (*/}
-                                {/*            <LatestPost key={item.title} {...item}/>*/}
-                                {/*        ))*/}
-                                {/*    }*/}
-                                {/*</div>*/}
+                                <table className="table table-green">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">Фото</th>
+                                        <th scope="col">Ім'я</th>
+                                        <th scope="col">Вік</th>
+                                        <th scope="col">Регіон</th>
+                                        <th scope="col">Відомості</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {
+                                        missing_people.map((item) => (
+                                            <PostTableItem key={item.title} {...item}/>
+                                        ))
+                                    }
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                         <div className="col-lg-4 m-15px-tb">

@@ -47,17 +47,31 @@ html, body {
     color: $middle-green;
     margin-bottom: 25px;
   }
+  .help {
+    margin-top: 30px;
+    padding: 20px 25px;
+    border: 1px solid $dark-green;
+    border-radius: 8px;
+    background: $middle-green;
+    width: fit-content;
+    & > * {
+      color: #fff;
+    }
+    a {
+      border: 1px solid #f6f5f7;
+    }
+  }
   &__question {
-    color: $high-green;
     font-size: 20px;
     font-weight: 600;
     line-height: 1.2;
-    margin: 25px 0 15px;
+    margin: 0 0 15px;
   }
 }
 
 .features {
   display: flex;
+  align-items: start;
   justify-content: space-between;
   margin-bottom: 150px;
   .feature {

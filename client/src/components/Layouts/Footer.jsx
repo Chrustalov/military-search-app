@@ -38,8 +38,8 @@ function Footer() {
                                   </NavLink>
                               </li>
                               <li className="footer-link">
-                                  <NavLink className="text-white" to={"/post"}>
-                                      Розшук зниклих
+                                  <NavLink className="text-white" to={"/posts"}>
+                                      Пошук зниклих
                                   </NavLink>
                               </li>
                               {!localStorage.getItem("token") ? (

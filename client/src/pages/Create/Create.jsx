@@ -32,7 +32,7 @@ function Create() {
       .post(
         REQUEST_URL,
         {
-          request: {
+          post: {
             title,
             content,
             city_id: cityId,

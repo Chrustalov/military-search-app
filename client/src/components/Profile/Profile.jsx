@@ -100,7 +100,6 @@ const Profile = () => {
         .get(process.env.REACT_APP_API_URL + "api/v1/cities")
         .then((resp) => resp.data)
         .then((data) => {
-          console.log(data);
           setCities(data.cities);
         })
         .catch((error) => {

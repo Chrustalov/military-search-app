@@ -52,6 +52,7 @@ function UserInfo({
   }, []);
 
   const onCityChange = useCallback((e) => {
+    console.log("city", e.target.value);
     dispatch({ type: "SET_CITY", payload: e.target.value });
   }, []);
 
@@ -136,15 +137,33 @@ function UserInfo({
               required={false}
             />
             <hr />
-            <UserInfoElement
-              name={"Місто"}
-              value={state.city}
-              isEditing={isEditing}
-              onChange={onCityChange}
-              as="select"
-              options={cities}
-            />
-            
+
+            <div className="row">
+              <div className="col-sm-3">
+                <p className="mb-0">Місто</p>
+              </div>
+              <div className="col-sm-9">
+                <select
+                  className="mb-0 bg-transparent w-75 text-truncate border-black"
+                  style={{
+                    outline: "0",
+                    borderWidth: isEditing ? " 0 0 2px" : "0",
+                  }}
+                  type="text"
+                  disabled={!isEditing}
+                  value={state.city_id}
+                  onChange={onCityChange}
+                  required
+                >
+                  {cities.map((city) => (
+                    <option key={city.id} value={city.id}>
+                      {city.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
             <hr />
             <UserInfoElement
               name={isCompany ? "Про організацію" : "Про мене"}
@@ -191,7 +210,7 @@ function reducer(state = initialState, action) {
     case "SET_SECOND_PHONE":
       return { ...state, second_phone: action.payload };
     case "SET_CITY":
-      return { ...state, city: action.payload };
+      return { ...state, city_id: action.payload };
     case "SET_ABOUT_ME":
       return { ...state, about_me: action.payload };
     case "SET_AVATAR":

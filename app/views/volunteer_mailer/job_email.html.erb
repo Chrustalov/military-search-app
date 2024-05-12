@@ -46,7 +46,7 @@
 </head>
 <body>
   <div class="container">
-    <h1><%= @user.role== "volunteer" ? (@user.profile.first_name || "Незнайомцю") : (@user.profile.organization_name|| "Незнайомцю" )%>, ви отримали нове сповіщення</h1>
+    <h1><%= @user.role == 0 ? (@user.profile.first_name || "Незнайомцю") : (@user.profile.organization_name || "Незнайомцю" )%>, ви отримали нове сповіщення</h1>
     <h3>
       Місто: <%= @city.name %>.<br>
     </h3>

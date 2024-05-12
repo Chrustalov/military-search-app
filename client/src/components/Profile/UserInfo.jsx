@@ -83,7 +83,6 @@ function UserInfo({
           <form
             className="card-body"
             id="edit-profile"
-            method="post"
             onSubmit={(e) => {
               e.stopPropagation();
               e.preventDefault();

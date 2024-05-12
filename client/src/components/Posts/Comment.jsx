@@ -11,7 +11,7 @@ function Comment(props) {
           : "justify-content-start"
       } `}
     >
-      <div className="comment p-3 rounded  col-6 border border-1 mb-3 ">
+      <div className="comment p-3 rounded  col-sm-6 col-12  border border-1 mb-3 ">
         <div className="comment-header card-header mb-3 gap-2 d-flex justify-content-md-between justify-content-start  align-items-center flex-column flex-md-row">
           <div>
             <span>{props.comment.email}</span>

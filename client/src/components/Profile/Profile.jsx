@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import FotoCard from "./FotoCard";
 import SocialLinks from "./SocialLinks";
 import UserInfo from "./UserInfo";
+import UserBroadcasts from "./UserBroadcasts";
 import { useToastNotification } from "../../hooks/useToastNotification";
 import { useUser } from "../../contexts/UserContext";
 
@@ -11,6 +12,7 @@ const Profile = () => {
   const { id } = useParams();
   const { user, isCompany, cities, setCities } = useUser();
   const [profile, setProfile] = useState(null);
+  const [broadcasts, setBroadcasts] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const { toastError, toastSuccess } = useToastNotification();
 
@@ -25,16 +27,19 @@ const Profile = () => {
   }, []);
 
   const onEditProfile = useCallback(
-    (newProfile) => {
+    (newProfile, broadcast = null) => {
       console.log("Save new profile", newProfile);
       axios
         .patch(
           process.env.REACT_APP_API_URL +
-            "/api/v1/" +
+            "api/v1/" +
             (!isCompany ? "volunteer" : "organization") +
             "/profiles/" +
             newProfile.id,
-          { profile: newProfile },
+          {
+            profile: newProfile,
+            broadcast: broadcast,
+          },
           {
             headers: {
               "Content-Type": "multipart/form-data",
@@ -44,8 +49,11 @@ const Profile = () => {
         )
         .then((resp) => resp.data)
         .then((data) => {
+          console.log(data, "data from server");
           setProfile(data.profile);
+          setBroadcasts(data.broadcast);
           setIsEditing(false);
+          toastSuccess("Профіль збережено");
         })
         .catch((error) => {
           toastError(error.message);
@@ -84,6 +92,7 @@ const Profile = () => {
                 [key]: data.profile[key],
               }))
           );
+          setBroadcasts(data.broadcast);
         })
         .catch((error) => {
           console.log(error);
@@ -128,6 +137,10 @@ const Profile = () => {
     [onEditProfile, profile]
   );
 
+  const onBroadcastEdit = useCallback((newBroadcast) => {
+    onEditProfile(profile, newBroadcast);
+  }, [onEditProfile, profile]);
+
   if (!user) {
     return (
       <div className="container py-5">
@@ -164,6 +177,11 @@ const Profile = () => {
               onCancel={onCancel}
               isCompany={isCompany}
             />
+          </div>
+          <div className="row">
+            {!isCompany && (
+              <UserBroadcasts broadcast={broadcasts} onEdit={onBroadcastEdit} />
+            )}
           </div>
         </div>
       </section>

@@ -2,12 +2,13 @@ class Api::V1::Volunteer::ProfilesController < ApplicationController
     before_action :set_user, only: %i[ show  ]
     before_action :set_profile, only: %i[  update destroy ]
     def show 
-        render json: { user: @user, profile: @user.profile}
+        render json: { user: @user, profile: @user.profile, broadcast: @user.broadcast}
     end
     
     def update
-        city = City.find_by(name: params[:profile][:city])
-        if current_user && @profile.update(profile_params.merge(user_id: current_user.id, city_id: city.id)) && @broadcast.update(broadcast_params)
+        # city = City.find_by(name: params[:profile][:city])
+        if current_user && @profile.update(profile_params.merge(user_id: current_user.id, city_id: params[:profile][:city_id])) && @broadcast.update(broadcast_params)
+           
             render json: { user: current_user, profile: @profile, broadcast: @broadcast}
         else
             render json: @request.errors, status: :unprocessable_entity

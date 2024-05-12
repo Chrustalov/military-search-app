@@ -7,7 +7,7 @@ import { useToastNotification } from "../../hooks/useToastNotification";
 function Comments({ comments, postId, addComment }) {
   const { user } = useUser();
   const [commentText, setCommentText] = useState("");
-  const {toastError, toastSuccess} = useToastNotification();
+  const { toastError, toastSuccess } = useToastNotification();
 
   const onChangeComment = useCallback((e) => {
     setCommentText(e.target.value);
@@ -26,6 +26,7 @@ function Comments({ comments, postId, addComment }) {
             headers: {
               "Content-Type": "application/json",
               Accept: "application/json",
+              Authorization: localStorage.getItem("token"),
             },
           }
         )
@@ -39,12 +40,12 @@ function Comments({ comments, postId, addComment }) {
     } catch (err) {
       toastError(err.message);
     }
-    
+
     setCommentText("");
-  }
+  };
 
   return (
-    <div className="container-fluid ">
+    <div className="container-fluid mt-4">
       <h3>Коментарі</h3>
       <div
         className=" container-fluid  overflow-y-scroll  "
@@ -65,9 +66,9 @@ function Comments({ comments, postId, addComment }) {
           ))}
       </div>
       <div className="container-fluid ">
-        <div className="row justify-content-between gap-3 align-content-center ">
+        <div className="row justify-content-between align-content-center ">
           <input
-            className="rounded p-3 login-input-text flex-grow-1  "
+            className="rounded p-3 login-input-text flex-grow-1 me-1 me-sm-3 "
             placeholder="Коментар"
             aria-label="Коментар"
             type="text"
@@ -75,7 +76,7 @@ function Comments({ comments, postId, addComment }) {
             onChange={onChangeComment}
           />
           <button
-            className="btn btn-outline-dark col-1 p-0 m-auto my-1  "
+            className="btn btn-outline-dark col-sm-1 col-3 p-0 m-auto my-1  "
             type="button"
             onClick={handleComment}
           >

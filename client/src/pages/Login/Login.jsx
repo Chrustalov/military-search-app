@@ -111,11 +111,12 @@ function Login() {
   );
 
   async function Login(
-    { name, password, email, volunteer = false },
+    { name, password, email, isVolunteer = false },
     endPoint = "/login"
   ) {
     console.log(process.env);
     try {
+      console.log(isVolunteer);
       const response = await axios
         .post(
           process.env.REACT_APP_API_URL + endPoint,
@@ -124,7 +125,7 @@ function Login() {
               name,
               password,
               email,
-              role: volunteer ? "volunteer" : "organization",
+              role: isVolunteer ? "volunteer" : "organization",
             },
           },
           {

@@ -1,26 +1,88 @@
-import React from "react";
+import React, { useCallback, useState } from "react";
 import Comment from "./Comment";
 import { useUser } from "../../contexts/UserContext";
-function Comments({ comments }) {
+import { IoIosSend } from "react-icons/io";
+import axios from "axios";
+import { useToastNotification } from "../../hooks/useToastNotification";
+function Comments({ comments, postId, addComment }) {
   const { user } = useUser();
-  console.log(user);
-  console.log(comments);
+  const [commentText, setCommentText] = useState("");
+  const {toastError, toastSuccess} = useToastNotification();
+
+  const onChangeComment = useCallback((e) => {
+    setCommentText(e.target.value);
+  }, []);
+
+  const handleComment = async () => {
+    try {
+      const response = await axios
+        .post(
+          process.env.REACT_APP_API_URL + "api/v1/comments",
+          {
+            text: commentText,
+            post_id: postId,
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            },
+          }
+        )
+        .catch((err) => err.response);
+
+      const data = response.data;
+      if (response.status > 300) throw data;
+      console.log(data, "New comment");
+      toastSuccess("Успішно");
+      addComment(data.comment);
+    } catch (err) {
+      toastError(err.message);
+    }
+    
+    setCommentText("");
+  }
+
   return (
-    <div className="comments">
+    <div className="container-fluid ">
       <h3>Коментарі</h3>
-      {comments &&
-        comments.map((comment, index) => (
-          <div
-            key={comment?.id || index}
-            className={
-              user && comment.user?.id === user?.id
-                ? "comment-left"
-                : "comment-right"
-            }
+      <div
+        className=" container-fluid  overflow-y-scroll  "
+        style={{ maxHeight: "300px" }}
+      >
+        {comments &&
+          comments.map((comment, index) => (
+            <div
+              key={index}
+              className={
+                user && comment.user?.id === user?.id
+                  ? "comment-left"
+                  : "comment-right"
+              }
+            >
+              <Comment comment={comment} />
+            </div>
+          ))}
+      </div>
+      <div className="container-fluid ">
+        <div className="row justify-content-between gap-3 align-content-center ">
+          <input
+            className="rounded p-3 login-input-text flex-grow-1  "
+            placeholder="Коментар"
+            aria-label="Коментар"
+            type="text"
+            value={commentText}
+            onChange={onChangeComment}
+          />
+          <button
+            className="btn btn-outline-dark col-1 p-0 m-auto my-1  "
+            type="button"
+            onClick={handleComment}
           >
-            <Comment comment={comment} />
-          </div>
-        ))}
+            <IoIosSend size={"2rem"} className="m-0" />
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

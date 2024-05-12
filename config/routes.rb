@@ -15,6 +15,8 @@ Rails.application.routes.draw do
           post '/upload_table_data', to: 'api/v1/posts#upload_table_data'
         end
       end
+      resources :cities
+      resources :comments
       namespace :volunteer do 
         resources :profiles
       end

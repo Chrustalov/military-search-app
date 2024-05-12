@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 
 function PostCard(props) {
     function limitString(text, maxLength) {
-        if (text.length > maxLength) {
+        if (text && text.length > maxLength) {
             return text.substring(0, maxLength) + "...";
         }
         return text;

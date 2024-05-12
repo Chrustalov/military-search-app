@@ -26,15 +26,23 @@ class Api::V1::PostsController < ApplicationController
   end
 
   def show
+    @post = Post.find(params[:id])
     latest_posts = Post.order(created_at: :desc).limit(3)
-
+  
+    comments_with_emails = @post.comments.map { |comment| { 
+      id: comment.id,
+      text: comment.text,
+      email: comment.user.email # Отримати email користувача коментаря
+    } }
+  
     render json: {
       post: @post,
+      comments: comments_with_emails, # Використовуємо коментарі з email користувачів
       city: @post.city,
       missing_people: @post.missing_people,
       creator: @post.user,
       creator_profile: @post.user.profile,
-      latest_posts:
+      latest_posts: latest_posts
     }
   end
 
